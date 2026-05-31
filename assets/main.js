@@ -120,7 +120,7 @@
       ring.style.transform = "translate(" + rx + "px," + ry + "px) translate(-50%,-50%)";
       requestAnimationFrame(loop);
     })();
-    $$("a, button, .kit li, .case").forEach(function (el) {
+    $$("a, button, .tlist li, .gtile, .case").forEach(function (el) {
       el.addEventListener("mouseenter", function () { ring.classList.add("big"); });
       el.addEventListener("mouseleave", function () { ring.classList.remove("big"); });
     });
@@ -147,5 +147,29 @@
       chart.style.transform = "perspective(900px) rotateY(" + x * 5 + "deg) rotateX(" + (-yy * 5) + "deg)";
     });
     chart.addEventListener("mouseleave", function () { chart.style.transform = ""; });
+  }
+
+  /* ---- gallery lightbox (only for tiles with a real image) ---- */
+  var lb = $("#lightbox"), lbImg = $("#lbImg");
+  if (lb && lbImg) {
+    function openLb(src, alt) {
+      lbImg.src = src; lbImg.alt = alt || "";
+      lb.classList.add("open"); lb.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+    function closeLb() {
+      lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+    $$(".gtile[data-full]").forEach(function (t) {
+      t.addEventListener("click", function () {
+        var im = $("img", t);
+        openLb(t.getAttribute("data-full"), im ? im.alt : "");
+      });
+    });
+    var lbClose = $(".lb-close", lb);
+    if (lbClose) lbClose.addEventListener("click", closeLb);
+    lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLb(); });
   }
 })();
