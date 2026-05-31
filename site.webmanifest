@@ -1,0 +1,12 @@
+{
+  "name": "Shaikh Amir Hussain — Data Analyst & AI Builder",
+  "short_name": "Amir Hussain",
+  "description": "Portfolio of Shaikh Amir Hussain — Dubai-based data analyst and AI builder.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F3EDE1",
+  "theme_color": "#F3EDE1",
+  "icons": [
+    { "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,151 @@
+/* Shaikh Amir Hussain — portfolio interactions
+   Vanilla JS, no dependencies. Progressive-enhancement + reduced-motion aware. */
+(function () {
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* ---- year ---- */
+  var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
+
+  /* ---- sticky header + scroll progress + back-to-top ---- */
+  var bar = $(".topbar"), prog = $(".progress"), toTop = $(".totop");
+  function onScroll() {
+    var t = window.pageYOffset || document.documentElement.scrollTop;
+    if (bar) bar.classList.toggle("stuck", t > 8);
+    if (prog) {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      prog.style.width = (h > 0 ? (t / h) * 100 : 0) + "%";
+    }
+    if (toTop) toTop.classList.toggle("show", t > 700);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+  if (toTop) toTop.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+  });
+
+  /* ---- mobile nav ---- */
+  var toggle = $(".nav-toggle"), nav = $("#nav");
+  if (toggle && nav) {
+    toggle.addEventListener("click", function () {
+      var open = nav.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    $$("a", nav).forEach(function (a) {
+      a.addEventListener("click", function () {
+        nav.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  /* ---- reveal on scroll + trigger chart/stat animations ---- */
+  var reveal = $$(".reveal");
+  var heroH1 = $(".hero h1");
+  if ("IntersectionObserver" in window && !reduce) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
+    reveal.forEach(function (el) { io.observe(el); });
+    if (heroH1) io.observe(heroH1);
+  } else {
+    reveal.forEach(function (el) { el.classList.add("in"); });
+    if (heroH1) heroH1.classList.add("in");
+  }
+
+  /* ---- count-up numbers ---- */
+  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+  function countUp(el) {
+    var target = parseFloat(el.getAttribute("data-count"));
+    var dec = (el.getAttribute("data-dec") | 0);
+    if (reduce) { el.textContent = target.toFixed(dec); return; }
+    var dur = 1500, start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = (target * easeOut(p)).toFixed(dec);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = target.toFixed(dec);
+    }
+    requestAnimationFrame(step);
+  }
+  var nums = $$("[data-count]");
+  if ("IntersectionObserver" in window) {
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { countUp(e.target); io2.unobserve(e.target); }
+      });
+    }, { threshold: 0.6 });
+    nums.forEach(function (el) { io2.observe(el); });
+  } else {
+    nums.forEach(function (el) { el.textContent = el.getAttribute("data-count"); });
+  }
+
+  /* ---- active nav link via section observer ---- */
+  var links = $$(".nav a.navlink");
+  var map = {};
+  links.forEach(function (a) {
+    var id = a.getAttribute("href"); if (id && id.charAt(0) === "#") map[id.slice(1)] = a;
+  });
+  var secs = Object.keys(map).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+  if (secs.length && "IntersectionObserver" in window) {
+    var io3 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          links.forEach(function (l) { l.classList.remove("active"); });
+          if (map[e.target.id]) map[e.target.id].classList.add("active");
+        }
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    secs.forEach(function (s) { io3.observe(s); });
+  }
+
+  /* ---- custom cursor + magnetic buttons (fine pointer only) ---- */
+  if (finePointer && !reduce) {
+    var dot = document.createElement("div"); dot.className = "cursor";
+    var ring = document.createElement("div"); ring.className = "cursor-ring";
+    document.body.appendChild(dot); document.body.appendChild(ring);
+    var mx = 0, my = 0, rx = 0, ry = 0;
+    window.addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = "translate(" + mx + "px," + my + "px) translate(-50%,-50%)";
+    });
+    (function loop() {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.transform = "translate(" + rx + "px," + ry + "px) translate(-50%,-50%)";
+      requestAnimationFrame(loop);
+    })();
+    $$("a, button, .kit li, .case").forEach(function (el) {
+      el.addEventListener("mouseenter", function () { ring.classList.add("big"); });
+      el.addEventListener("mouseleave", function () { ring.classList.remove("big"); });
+    });
+    // magnetic effect
+    $$("[data-magnetic]").forEach(function (el) {
+      var strength = parseFloat(el.getAttribute("data-magnetic")) || 0.3;
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        var x = e.clientX - r.left - r.width / 2;
+        var yy = e.clientY - r.top - r.height / 2;
+        el.style.transform = "translate(" + x * strength + "px," + yy * strength + "px)";
+      });
+      el.addEventListener("mouseleave", function () { el.style.transform = ""; });
+    });
+  }
+
+  /* ---- tiny parallax on hero chart ---- */
+  var chart = $(".chartwrap");
+  if (chart && finePointer && !reduce) {
+    chart.addEventListener("mousemove", function (e) {
+      var r = chart.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var yy = (e.clientY - r.top) / r.height - 0.5;
+      chart.style.transform = "perspective(900px) rotateY(" + x * 5 + "deg) rotateX(" + (-yy * 5) + "deg)";
+    });
+    chart.addEventListener("mouseleave", function () { chart.style.transform = ""; });
+  }
+})();

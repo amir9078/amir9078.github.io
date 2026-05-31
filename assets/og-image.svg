@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Shaikh Amir Hussain — Data Analyst and AI Builder">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F3EDE1"/>
+      <stop offset="1" stop-color="#E4DAC6"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#1C1813" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect x="0" y="0" width="1200" height="10" fill="#E2431C"/>
+
+  <!-- edition line -->
+  <text x="80" y="92" font-family="'JetBrains Mono',monospace" font-size="20" letter-spacing="6" fill="#857a68">
+    DUBAI, UAE · PORTFOLIO · No. 01 — 2026
+  </text>
+  <line x1="80" y1="112" x2="1120" y2="112" stroke="#1C1813" stroke-width="2"/>
+
+  <!-- name -->
+  <text x="78" y="248" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="104" letter-spacing="-3" fill="#1C1813">Shaikh Amir Hussain</text>
+  <text x="80" y="318" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="52" fill="#1C1813">Data Analyst <tspan fill="#E2431C">→</tspan> AI Builder</text>
+
+  <text x="80" y="372" font-family="'Schibsted Grotesk',sans-serif" font-size="25" fill="#4B4339">Google-certified · 4+ yrs · turning data into decisions across 60+ countries.</text>
+
+  <!-- mini ascending chart -->
+  <polyline points="80,470 230,452 380,460 530,500 530,500" fill="none"/>
+  <polyline points="80,500 250,476 420,486 600,430 760,392 820,330"
+            fill="none" stroke="#E2431C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="820" cy="330" r="9" fill="#E2431C"/>
+
+  <!-- stat blocks -->
+  <g font-family="Fraunces, Georgia, serif" fill="#1C1813">
+    <text x="80" y="566" font-size="58" font-weight="600">+46<tspan font-size="34" fill="#E2431C">%</tspan></text>
+    <text x="300" y="566" font-size="58" font-weight="600">+150<tspan font-size="34" fill="#E2431C">%</tspan></text>
+    <text x="560" y="566" font-size="58" font-weight="600">99.9<tspan font-size="34" fill="#E2431C">%</tspan></text>
+  </g>
+  <g font-family="'JetBrains Mono',monospace" font-size="15" letter-spacing="2" fill="#857a68">
+    <text x="82" y="592">SALES LIFT</text>
+    <text x="302" y="592">ENGAGEMENT</text>
+    <text x="562" y="592">DATA ACCURACY</text>
+  </g>
+
+  <!-- monogram -->
+  <g transform="translate(980,430)">
+    <rect width="140" height="140" rx="30" fill="#1C1813"/>
+    <polyline points="26,100 56,82 82,90 114,40" fill="none" stroke="#E2431C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="114" cy="40" r="8.5" fill="#E2431C"/>
+    <path d="M44 110 L68 36 L73 36 L97 110 L85 110 L79 90 L60 90 L55 110 Z M62 80 L77 80 L70 53 Z" fill="#F3EDE1"/>
+  </g>
+  <text x="985" y="600" font-family="'JetBrains Mono',monospace" font-size="16" letter-spacing="3" fill="#857a68">mthedatawizard</text>
+</svg>
