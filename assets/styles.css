@@ -637,3 +637,29 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 .pager a:hover{color:var(--accent)}
 .pager .pg-back{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--ink-3);align-self:center}
 .pager .pg-back:hover{color:var(--accent)}
+
+/* =========================================================================
+   Skills — floating "bubble" cloud
+   ========================================================================= */
+.bubbles{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.bubbles.center{justify-content:center}
+.bubble{display:inline-block;will-change:transform}
+.bub{display:inline-block;font-family:var(--mono);font-size:.82rem;line-height:1;color:var(--ink-2);
+  border:1px solid var(--line-2);border-radius:100px;background:var(--paper-2);padding:.62em 1.05em;cursor:default;
+  transition:transform .35s var(--ease),background .3s,color .3s,border-color .3s,box-shadow .35s}
+.bub::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);
+  margin-right:.55em;vertical-align:middle;opacity:.5;transition:opacity .3s,transform .3s}
+.bub[data-size="lg"]{font-size:1.06rem;padding:.72em 1.3em;color:var(--ink);font-weight:500;border-color:var(--line-2)}
+.bub[data-size="sm"]{font-size:.72rem;padding:.5em .85em;opacity:.92}
+.bubble:hover .bub{transform:scale(1.07) translateY(-2px);background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:0 14px 28px -16px rgba(var(--ink-rgb),.6)}
+.bubble:hover .bub::before{opacity:1;transform:scale(1.5)}
+@media (prefers-reduced-motion:no-preference){
+  .bubble{animation:bubblefloat 6s ease-in-out infinite}
+  .bubble:nth-child(2n){animation-duration:7.4s;animation-delay:-1.6s}
+  .bubble:nth-child(3n){animation-duration:8.2s;animation-delay:-3.1s}
+  .bubble:nth-child(4n){animation-duration:6.6s;animation-delay:-2.3s}
+  .bubble:nth-child(5n){animation-duration:7.8s;animation-delay:-0.9s}
+  .bubble:nth-child(7n){animation-duration:9s;animation-delay:-4s}
+}
+@keyframes bubblefloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.skill-cat .bubbles{margin-top:.4em}
