@@ -10,5 +10,5 @@
       .wm{font-family:'Quicksand','Trebuchet MS',sans-serif;font-weight:700}
     </style>
   </defs>
-  <text class="wm" x="180" y="68" text-anchor="middle" dominant-baseline="central" font-size="86" letter-spacing="-1" fill="url(#lg)">Ami<tspan font-size="96">R</tspan></text>
+  <text class="wm" x="180" y="68" text-anchor="middle" dominant-baseline="central" font-size="86" letter-spacing="-1" fill="url(#lg)">AmiR</text>
 </svg>
