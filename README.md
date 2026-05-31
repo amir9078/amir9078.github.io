@@ -31,13 +31,23 @@ oversized Fraunces serif headlines, JetBrains Mono data labels, and a single sig
 ## Files
 
 ```
-index.html            # the whole site (single page)
-assets/styles.css     # design system + all styles
-assets/main.js        # interactions (vanilla JS)
+index.html            # home — overview with summaries + "view full" links
+about.html            # full bio, journey, philosophy
+work.html             # detailed project case studies (#draftly #euronet #hsi #nexford)
+experience.html       # every role, point-by-point: problem → solution → tools
+tools.html            # full toolkit with how I use each + proficiency
+assets/styles.css     # design system + all styles (shared across pages)
+assets/main.js        # interactions (vanilla JS, shared)
+assets/amir-logo.svg  # standalone AmiR wordmark
 assets/favicon.svg    # monogram favicon
 assets/og-image.svg   # 1200×630 social-share image
+assets/gallery/       # drop photos here (see gallery/README.txt)
 site.webmanifest robots.txt sitemap.xml .nojekyll
 ```
+
+The site is multi-page: the **home page** carries animated summaries of each
+section; the header links to dedicated **detail pages** (About / Work / Experience /
+Tools) that expand each one fully. Header, footer, CSS and JS are shared across pages.
 
 ## Deploy (GitHub Pages)
 
