@@ -555,7 +555,7 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 
 /* How I can help — horizontal scenario scroll */
 .helps{display:flex;gap:clamp(14px,1.8vw,22px);overflow-x:auto;padding:4px 4px 16px;margin-inline:-4px;
-  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab;
+  scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;cursor:grab;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 2%,#000 92%,transparent);
           mask-image:linear-gradient(90deg,transparent,#000 2%,#000 92%,transparent)}
 .helps.dragging{cursor:grabbing;scroll-snap-type:none}

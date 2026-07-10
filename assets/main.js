@@ -200,6 +200,12 @@
     });
     // suppress the click on a card if the pointer actually dragged
     row.addEventListener("click", function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+    // convert normal vertical wheel/trackpad scroll into horizontal scroll
+    row.addEventListener("wheel", function (e) {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // already horizontal, let it be
+      e.preventDefault();
+      row.scrollLeft += e.deltaY;
+    }, { passive: false });
   });
 
   /* ---- gallery lightbox (only for tiles with a real image) ---- */
