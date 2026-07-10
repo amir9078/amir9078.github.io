@@ -149,6 +149,38 @@
     chart.addEventListener("mouseleave", function () { chart.style.transform = ""; });
   }
 
+  /* ---- 3D tilt for card panels (dispatch/case/help/tl-chart) ---- */
+  if (finePointer && !reduce) {
+    $$(".dispatch, .case, .help, .tl-chart").forEach(function (el) {
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = "perspective(900px) rotateY(" + (px * 5) + "deg) rotateX(" + (-py * 5) + "deg) translateY(-6px)";
+      });
+      el.addEventListener("mouseleave", function () { el.style.transform = ""; });
+    });
+  }
+
+  /* ---- layered parallax on hero's floating chips ---- */
+  var heroEl = $(".hero");
+  var chips = $$(".chip");
+  if (heroEl && chips.length && finePointer && !reduce) {
+    heroEl.addEventListener("mousemove", function (e) {
+      var r = heroEl.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      chips.forEach(function (c, i) {
+        var depth = i % 2 === 0 ? 16 : 24;
+        c.style.marginLeft = (px * -depth) + "px";
+        c.style.marginTop = (py * -depth) + "px";
+      });
+    });
+    heroEl.addEventListener("mouseleave", function () {
+      chips.forEach(function (c) { c.style.marginLeft = ""; c.style.marginTop = ""; });
+    });
+  }
+
   /* ---- gallery lightbox (only for tiles with a real image) ---- */
   var lb = $("#lightbox"), lbImg = $("#lbImg");
   if (lb && lbImg) {
