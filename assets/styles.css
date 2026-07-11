@@ -694,3 +694,74 @@ html.pin-mode .helps.dragging{cursor:default}
 @media (prefers-reduced-motion:reduce){
   .page-transition{display:none}
 }
+
+/* =========================================================================
+   Editorial elevation — ghost numerals, statement marquee, orbit badge,
+   indexed color-coded cards, italic almanac numerals
+   ========================================================================= */
+
+h1,h2,h3{text-wrap:balance}
+
+/* oversized ghost section numerals (data-almanac folio marks) */
+body{counter-reset:sec}
+.sec-head{position:relative;counter-increment:sec}
+.sec-head::after{
+  content:counter(sec,decimal-leading-zero);
+  position:absolute;right:0;top:-.32em;line-height:1;pointer-events:none;
+  font-family:var(--display);font-weight:700;font-style:italic;
+  font-size:clamp(4.5rem,11vw,8.5rem);letter-spacing:-.02em;
+  color:transparent;-webkit-text-stroke:1.5px rgba(var(--ink-rgb),.22);
+}
+.detail{counter-reset:blk}
+.xp,.tool-cat{counter-increment:blk;position:relative}
+.xp::after,.tool-cat::after{
+  content:counter(blk,decimal-leading-zero);
+  position:absolute;right:0;top:.35em;line-height:1;pointer-events:none;
+  font-family:var(--display);font-weight:700;font-style:italic;
+  font-size:clamp(3.6rem,8vw,6.5rem);letter-spacing:-.02em;
+  color:transparent;-webkit-text-stroke:1.5px rgba(var(--ink-rgb),.2);
+}
+.xp:first-child::after,.tool-cat:first-child::after{top:0}
+
+/* statement marquee — huge outlined serif, filled accent on the payoff */
+.bigline{overflow:hidden;border-block:2px solid var(--rule);padding:clamp(16px,2.4vw,28px) 0;position:relative;z-index:1;background:var(--paper)}
+.bl-track{display:flex;align-items:center;width:max-content;animation:scroll 26s linear infinite}
+.bigline span,.bigline em{
+  font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,6.5vw,5rem);
+  line-height:1.1;letter-spacing:-.02em;white-space:nowrap;padding:0 .38em;
+  color:transparent;-webkit-text-stroke:1.5px var(--ink);
+}
+.bigline em{font-style:italic;color:var(--accent);-webkit-text-stroke:0}
+.bigline i{font-style:normal;color:var(--accent);font-size:clamp(1rem,2vw,1.5rem)}
+.bigline:hover .bl-track{animation-play-state:paused}
+
+/* spinning orbit badge on the portrait */
+.orbit{position:absolute;top:-30px;right:-24px;width:132px;height:132px;z-index:2;color:var(--ink)}
+.orbit::before{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--paper);border:1px solid var(--line-2);box-shadow:0 14px 30px -20px rgba(var(--ink-rgb),.55)}
+.orbit::after{content:"✳";position:absolute;inset:0;display:grid;place-items:center;color:var(--accent);font-size:1.35rem}
+.orbit svg{position:relative;width:100%;height:100%;animation:orbitspin 20s linear infinite}
+.orbit text{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;fill:currentColor}
+@keyframes orbitspin{to{transform:rotate(360deg)}}
+
+/* "How I can help" cards — indexed + color-coded per card */
+.helps{counter-reset:help}
+.help{counter-increment:help;--hc:var(--accent)}
+.help:nth-child(4n+2){--hc:var(--pine)}
+.help:nth-child(4n+3){--hc:var(--gold)}
+.help:nth-child(4n+4){--hc:var(--blue)}
+.help::after{
+  content:counter(help,decimal-leading-zero);
+  position:absolute;top:22px;right:24px;
+  font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.14em;color:var(--ink-3);
+}
+.help::before{background:var(--hc)}
+.help-ic{color:var(--hc)}
+.help:hover .help-ic{background:var(--hc);color:var(--paper)}
+
+/* italic almanac numerals in the stats band */
+.stat .num{font-style:italic}
+
+@media (max-width:900px){
+  .sec-head::after,.xp::after,.tool-cat::after{display:none}
+  .orbit{width:104px;height:104px;top:-20px;right:-14px}
+}
