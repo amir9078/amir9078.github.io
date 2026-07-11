@@ -23,7 +23,7 @@
   --paper-rgb:243,237,225;
   --ink-rgb:28,24,19;
 
-  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --display:"Bodoni Moda",Georgia,"Times New Roman",serif;
   --sans:"Schibsted Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
 
@@ -556,11 +556,11 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 /* How I can help — horizontal scenario scroll */
 .helps{display:flex;gap:clamp(14px,1.8vw,22px);overflow-x:auto;padding:4px 4px 16px;margin-inline:-4px;
   scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;cursor:grab;
+  scrollbar-width:none;-ms-overflow-style:none;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 2%,#000 92%,transparent);
           mask-image:linear-gradient(90deg,transparent,#000 2%,#000 92%,transparent)}
 .helps.dragging{cursor:grabbing;scroll-snap-type:none}
-.helps::-webkit-scrollbar{height:6px}
-.helps::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:3px}
+.helps::-webkit-scrollbar{display:none}
 .help{position:relative;flex:0 0 268px;scroll-snap-align:center;border:1px solid var(--line-2);border-radius:var(--radius);padding:clamp(24px,2.8vw,34px);background:var(--paper-2);overflow:hidden;
   transition:transform .5s var(--ease),box-shadow .5s,border-color .4s,background .4s}
 .help::before{content:"";position:absolute;left:0;top:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
@@ -673,3 +673,24 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 }
 @keyframes bubblefloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 .skill-cat .bubbles{margin-top:.4em}
+
+/* =========================================================================
+   GSAP motion layer — page transitions, SplitText words, pin-mode
+   ========================================================================= */
+
+/* page transition curtain (element is created/animated by gsap-motion.js) */
+.page-transition{position:fixed;inset:0;z-index:300;background:var(--ink);display:flex;align-items:center;justify-content:center;pointer-events:none}
+.page-transition .pt-mark{font-family:"Quicksand",var(--sans);font-weight:700;font-size:2.4rem;letter-spacing:-.01em;color:var(--paper);opacity:.9}
+.page-transition .pt-mark .r{color:var(--accent)}
+
+/* SplitText word reveals (.sec-head h2 / .xp h2 / .tool-cat h2) */
+.sw-word{display:inline-block;will-change:transform,opacity}
+
+/* horizontal pin mode for "How I can help" — GSAP drives .helps via transform;
+   hiding overflow neutralises main.js's native drag-scroll while pinned */
+html.pin-mode .helps{overflow:hidden;cursor:default}
+html.pin-mode .helps.dragging{cursor:default}
+
+@media (prefers-reduced-motion:reduce){
+  .page-transition{display:none}
+}

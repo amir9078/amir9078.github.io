@@ -74,7 +74,7 @@
     }
     requestAnimationFrame(step);
   }
-  var nums = $$("[data-count]");
+  var nums = $$("[data-count]").filter(function (el) { return !el.closest(".stats"); });
   if ("IntersectionObserver" in window) {
     var io2 = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -103,38 +103,6 @@
       });
     }, { rootMargin: "-45% 0px -50% 0px" });
     secs.forEach(function (s) { io3.observe(s); });
-  }
-
-  /* ---- custom cursor + magnetic buttons (fine pointer only) ---- */
-  if (finePointer && !reduce) {
-    var dot = document.createElement("div"); dot.className = "cursor";
-    var ring = document.createElement("div"); ring.className = "cursor-ring";
-    document.body.appendChild(dot); document.body.appendChild(ring);
-    var mx = 0, my = 0, rx = 0, ry = 0;
-    window.addEventListener("mousemove", function (e) {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = "translate(" + mx + "px," + my + "px) translate(-50%,-50%)";
-    });
-    (function loop() {
-      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
-      ring.style.transform = "translate(" + rx + "px," + ry + "px) translate(-50%,-50%)";
-      requestAnimationFrame(loop);
-    })();
-    $$("a, button, .tlist li, .gtile, .case").forEach(function (el) {
-      el.addEventListener("mouseenter", function () { ring.classList.add("big"); });
-      el.addEventListener("mouseleave", function () { ring.classList.remove("big"); });
-    });
-    // magnetic effect
-    $$("[data-magnetic]").forEach(function (el) {
-      var strength = parseFloat(el.getAttribute("data-magnetic")) || 0.3;
-      el.addEventListener("mousemove", function (e) {
-        var r = el.getBoundingClientRect();
-        var x = e.clientX - r.left - r.width / 2;
-        var yy = e.clientY - r.top - r.height / 2;
-        el.style.transform = "translate(" + x * strength + "px," + yy * strength + "px)";
-      });
-      el.addEventListener("mouseleave", function () { el.style.transform = ""; });
-    });
   }
 
   /* ---- tiny parallax on hero chart ---- */
@@ -202,6 +170,7 @@
     row.addEventListener("click", function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
     // convert normal vertical wheel/trackpad scroll into horizontal scroll
     row.addEventListener("wheel", function (e) {
+      if (document.documentElement.classList.contains("pin-mode")) return; // GSAP owns scroll while pinned
       if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // already horizontal, let it be
       e.preventDefault();
       row.scrollLeft += e.deltaY;
