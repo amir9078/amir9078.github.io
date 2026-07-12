@@ -45,7 +45,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..600&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..600&display=swap"></noscript>
-<link rel="stylesheet" href="assets/styles.css?v=16">
+<link rel="stylesheet" href="assets/styles.css?v=17">
 
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -137,8 +137,7 @@
     <div class="hero-copy">
       <span class="eyebrow reveal in" data-d="1">Data &amp; AI · Dubai, UAE</span>
       <h1 id="hero-title">
-        <span class="line"><span><em class="grad-sweep signature">Data&nbsp;Analyst</em> by craft,</span></span>
-        <span class="line"><span><em class="grad-sweep signature">AI&nbsp;Developer</em> by obsession.</span></span>
+        <span class="line"><span><em class="grad-sweep signature">Data&nbsp;Analyst</em> by craft, <span class="type-rotate grad-sweep signature" id="heroType"></span><span class="term-caret" aria-hidden="true"></span></span></span>
       </h1>
       <p class="hero-tag reveal" data-d="2">Building business with <span class="grad-sweep signature">data and AI</span>.</p>
       <p class="lede reveal" data-d="3">I'm <b>Shaikh Amir Hussain</b> — a Dubai-based, Google-certified data analyst and AI developer. For 4+ years I've turned sales, logistics &amp; marketing data into decisions that move revenue — across CRMs like <b>Salesforce, Zoho, HubSpot &amp; Odoo</b>, automation with <b>Zapier</b>, and BI in <b>Power&nbsp;BI &amp; Tableau</b>. Now I'm pursuing a <b>Master's in AI</b> and building <b>Draftly</b>, an open-source AI assistant.</p>
@@ -308,14 +307,23 @@
   <div class="fixit reveal">
     <div class="fixit-picks" role="list">
       <button class="fixit-pick" type="button" data-fix="spreadsheets">Drowning in spreadsheets?</button>
+      <button class="fixit-pick" type="button" data-fix="crm">CRM pipeline a mess?</button>
       <button class="fixit-pick" type="button" data-fix="ai">No AI strategy?</button>
       <button class="fixit-pick" type="button" data-fix="manual">Manual busywork everywhere?</button>
+      <button class="fixit-pick" type="button" data-fix="marketing">Ad spend not paying off?</button>
       <button class="fixit-pick" type="button" data-fix="scattered">Data scattered across tools?</button>
-      <button class="fixit-pick" type="button" data-fix="reporting">Reporting takes forever?</button>
+      <button class="fixit-pick" type="button" data-fix="analytics">Can't tell what's working?</button>
       <button class="fixit-pick" type="button" data-fix="growth">Missing growth signals?</button>
+      <div class="fixit-custom">
+        <label for="fixitInput" class="fixit-custom-label">$ or type your own problem:</label>
+        <div class="fixit-input-row">
+          <input type="text" id="fixitInput" class="fixit-input" maxlength="140" placeholder="e.g. our CRM data never matches our reports">
+          <button type="button" class="fixit-submit" id="fixitSubmit">Run <span class="arr">→</span></button>
+        </div>
+      </div>
     </div>
     <div class="fixit-out" id="fixitOut" aria-live="polite">
-      <span class="fixit-idle">$ select a problem above<span class="term-caret" aria-hidden="true"></span></span>
+      <span class="fixit-idle">$ select a problem, or type your own<span class="term-caret" aria-hidden="true"></span></span>
     </div>
   </div>
 </section>
@@ -352,11 +360,19 @@
     <span>Drowning in spreadsheets?</span><i>✳</i><em>I build the dashboard.</em><i>✳</i>
     <span>Need AI in your workflow?</span><i>✳</i><em>I ship it.</em><i>✳</i>
     <span>Data everywhere, no insight?</span><i>✳</i><em>I find the signal.</em><i>✳</i>
+    <em class="quote">Data without action is just noise.</em><i>✳</i>
     <span>Manual work eating your week?</span><i>✳</i><em>I automate it.</em><i>✳</i>
+    <span>Reports late every week?</span><i>✳</i><em>I build the pipeline once.</em><i>✳</i>
+    <em class="quote">Every dataset hides a decision.</em><i>✳</i>
+    <span>Growth stalled somewhere?</span><i>✳</i><em>I find where it's leaking.</em><i>✳</i>
     <span>Drowning in spreadsheets?</span><i>✳</i><em>I build the dashboard.</em><i>✳</i>
     <span>Need AI in your workflow?</span><i>✳</i><em>I ship it.</em><i>✳</i>
     <span>Data everywhere, no insight?</span><i>✳</i><em>I find the signal.</em><i>✳</i>
+    <em class="quote">Data without action is just noise.</em><i>✳</i>
     <span>Manual work eating your week?</span><i>✳</i><em>I automate it.</em><i>✳</i>
+    <span>Reports late every week?</span><i>✳</i><em>I build the pipeline once.</em><i>✳</i>
+    <em class="quote">Every dataset hides a decision.</em><i>✳</i>
+    <span>Growth stalled somewhere?</span><i>✳</i><em>I find where it's leaking.</em><i>✳</i>
   </div>
   <div class="bl-track bl-code">
     <span class="code">const growth = automate(<b>"data"</b>);</span>
@@ -761,6 +777,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js" defer></script>
 <script src="assets/gsap-motion.js?v=6" defer></script>
-<script src="assets/main.js?v=12" defer></script>
+<script src="assets/main.js?v=13" defer></script>
 </body>
 </html>

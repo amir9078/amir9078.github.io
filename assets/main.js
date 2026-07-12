@@ -30,6 +30,25 @@
     document.body.appendChild(bg);
   })();
 
+  /* ---- hero typewriter: fixed prefix, rotating role — types, holds 3s, deletes, next ---- */
+  (function () {
+    var el = $("#heroType");
+    if (!el) return;
+    var words = ["AI Developer by obsession.", "Problem Solver by nature.", "Automation Builder by choice.", "Data Storyteller by trade."];
+    if (reduce) { el.textContent = words[0]; return; }
+    var w = 0, c = 0, deleting = false;
+    function tick() {
+      var word = words[w];
+      c += deleting ? -1 : 1;
+      el.textContent = word.slice(0, c);
+      var delay = deleting ? 32 : 62;
+      if (!deleting && c === word.length) { delay = 3000; deleting = true; }
+      else if (deleting && c === 0) { deleting = false; w = (w + 1) % words.length; delay = 400; }
+      setTimeout(tick, delay);
+    }
+    setTimeout(tick, 900);
+  })();
+
   /* ---- year ---- */
   var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
 
@@ -206,26 +225,50 @@
   /* ---- interactive "diagnose your problem" mini-game ---- */
   var fixitOut = $("#fixitOut");
   if (fixitOut) {
+    function escapeHtml(s) {
+      return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
     var FIXIT = {
       spreadsheets: { a: "I replace the spreadsheet maze with a single Power BI or Tableau dashboard your team actually opens.", proof: "+46% sales lift at Nexford University" },
+      crm: { a: "I standardize the pipeline — clear stage definitions, funnel metrics, one shared source of truth instead of ten versions of it.", proof: "+45% pipeline visibility at Confidential" },
       ai: { a: "I design and ship the AI layer — from prompt-engineered workflows to a shipped product like Draftly.", proof: "Built & maintain Draftly in the open" },
       manual: { a: "I map the repetitive steps and automate them with Zapier, Make or Power Automate — hours back every week.", proof: "−65% reporting effort at Confidential" },
+      marketing: { a: "I audit the campaigns, cut the underperforming creatives and put the budget where it's actually converting.", proof: "+22% blended ROAS at Confidential" },
       scattered: { a: "I unify every source — CRM, analytics, exports — into one trusted reporting layer.", proof: "+40% data accuracy at HSI" },
-      reporting: { a: "I build the pipeline once so reports generate themselves instead of getting rebuilt every week.", proof: "−60% report-generation time at HSI" },
+      analytics: { a: "I wire up Google Analytics and competitor tracking so you see the real signal, not vanity metrics.", proof: "+40% lead generation at HSI" },
       growth: { a: "I dig into the data for the signal everyone else is missing, and turn it into a plan.", proof: "+150% LinkedIn engagement at HSI" }
     };
+    function renderFixit(question, answer, proof) {
+      fixitOut.innerHTML =
+        '<span class="q">$ diagnosis: ' + question + '</span>' +
+        '<span class="a">' + answer + '</span>' +
+        (proof ? '<span class="proof">' + proof + '</span>' : "") +
+        '<a class="fixit-cta" href="#contact">Let\'s fix this <span class="arr">→</span></a>';
+    }
     $$(".fixit-pick").forEach(function (btn) {
       btn.addEventListener("click", function () {
         $$(".fixit-pick").forEach(function (b) { b.classList.remove("active"); });
         btn.classList.add("active");
         var d = FIXIT[btn.getAttribute("data-fix")];
         if (!d) return;
-        fixitOut.innerHTML =
-          '<span class="q">$ diagnosis: ' + btn.textContent + '</span>' +
-          '<span class="a">' + d.a + '</span>' +
-          '<span class="proof">' + d.proof + '</span>' +
-          '<a class="fixit-cta" href="#contact">Let\'s fix this <span class="arr">→</span></a>';
+        renderFixit(escapeHtml(btn.textContent), d.a, d.proof);
       });
     });
+
+    var fixitInput = $("#fixitInput"), fixitSubmit = $("#fixitSubmit");
+    if (fixitInput && fixitSubmit) {
+      function runCustom() {
+        var val = fixitInput.value.trim();
+        if (!val) { fixitInput.focus(); return; }
+        $$(".fixit-pick").forEach(function (b) { b.classList.remove("active"); });
+        renderFixit(
+          'diagnose --input="' + escapeHtml(val) + '"',
+          "Whatever the exact tool, the shape of the fix is usually the same: map it to the data, automate the repeat work, and put the answer in front of whoever makes the call. Tell me the details and I'll show you the plan.",
+          null
+        );
+      }
+      fixitSubmit.addEventListener("click", runCustom);
+      fixitInput.addEventListener("keydown", function (e) { if (e.key === "Enter") runCustom(); });
+    }
   }
 })();

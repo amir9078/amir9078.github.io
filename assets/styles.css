@@ -248,7 +248,19 @@ section{padding-block:clamp(64px,9vw,140px)}
 .fixit-cta{display:inline-flex;align-items:center;gap:.5em;font-family:var(--sans);font-weight:600;color:var(--accent);width:fit-content}
 .fixit-cta .arr{transition:transform .35s var(--ease)}
 .fixit-cta:hover .arr{transform:translate(3px,-3px)}
+.fixit-custom{margin-top:6px;padding-top:16px;border-top:1px dashed var(--line)}
+.fixit-custom-label{display:block;font-family:var(--mono);font-size:.76rem;color:var(--ink-3);margin-bottom:.7em}
+.fixit-input-row{display:flex;gap:10px}
+.fixit-input{flex:1;min-width:0;font-family:var(--mono);font-size:.86rem;padding:.85em 1em;
+  border:1px solid var(--line-2);border-radius:10px;background:var(--paper-2);color:var(--ink)}
+.fixit-input::placeholder{color:var(--ink-3)}
+.fixit-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 1px rgba(34,211,238,.3)}
+.fixit-submit{font-family:var(--mono);font-weight:700;font-size:.84rem;padding:.85em 1.3em;border-radius:10px;
+  border:1px solid var(--accent);background:var(--accent);color:#04222B;cursor:pointer;white-space:nowrap;
+  transition:transform .3s,box-shadow .3s}
+.fixit-submit:hover{transform:translateY(-2px);box-shadow:0 12px 28px -12px rgba(34,211,238,.5)}
 @media (max-width:760px){.fixit{grid-template-columns:1fr}}
+@media (max-width:480px){.fixit-input-row{flex-direction:column}}
 
 /* floating chips */
 .chip{position:absolute;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;padding:.45em .7em;background:var(--paper);border:1px solid var(--line-2);border-radius:10px;box-shadow:0 8px 20px -12px rgba(var(--sh-rgb),.5);white-space:nowrap;transition:margin .2s linear}
@@ -436,7 +448,7 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 
 .hero h1 .line>span{transform:translateY(110%);transition:transform .9s var(--ease-out)}
 .hero h1.in .line>span{transform:none}
-.hero h1 .line:nth-child(2)>span{transition-delay:.12s}
+.type-rotate{min-width:1px}
 
 /* ----- Custom cursor ---------------------------------------------------- */
 .cursor,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:90;mix-blend-mode:difference;will-change:transform}
@@ -765,13 +777,14 @@ body{counter-reset:sec}
 
 /* statement marquee — huge outlined serif, filled accent on the payoff */
 .bigline{overflow:hidden;border-block:2px solid var(--rule);padding:clamp(16px,2.4vw,28px) 0;position:relative;z-index:1;background:var(--paper)}
-.bl-track{display:flex;align-items:center;width:max-content;animation:scroll 60s linear infinite}
+.bl-track{display:flex;align-items:center;width:max-content;animation:scroll 100s linear infinite}
 .bigline span,.bigline em{
-  font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,6.5vw,5rem);
+  font-family:var(--display);font-weight:700;font-size:clamp(1.2rem,3.2vw,2.5rem);
   line-height:1.1;letter-spacing:-.02em;white-space:nowrap;padding:0 .38em;
   color:transparent;-webkit-text-stroke:1.5px var(--ink);
 }
-.bigline em{font-style:italic;color:var(--accent);-webkit-text-stroke:0;text-shadow:0 0 32px rgba(34,211,238,.5)}
+.bigline em{font-style:italic;color:var(--accent);-webkit-text-stroke:0;text-shadow:0 0 20px rgba(34,211,238,.5)}
+.bigline em.quote{color:var(--ink);-webkit-text-stroke:0;text-shadow:none;font-style:normal;opacity:.85}
 .bigline i{font-style:normal;color:var(--accent);font-size:clamp(1rem,2vw,1.5rem)}
 .bigline:hover .bl-track{animation-play-state:paused}
 /* counter-scrolling code ticker under the statement */
