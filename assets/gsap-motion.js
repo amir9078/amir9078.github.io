@@ -125,37 +125,11 @@
     });
   })();
 
-  /* ---- "How I can help": pinned horizontal scroll on desktop/tablet.
-     Overflow is hidden via .pin-mode CSS while pinned, which passively neutralises
-     main.js's native drag-scroll/scrollLeft handling for that element — no JS
-     coordination needed there beyond the wheel-redirect guard added in main.js. ---- */
-  (function setupHelpsPin() {
-    var sec = $(".helps-sec"), track = $(".helps");
-    if (!sec || !track || !hasST || reduce) return;
-    var mm = gsap.matchMedia();
-    mm.add("(min-width: 761px)", function () {
-      document.documentElement.classList.add("pin-mode");
-      track.scrollLeft = 0;
-      // measured lazily and re-measured on every ScrollTrigger refresh — a
-      // distance baked at load time goes stale once webfonts swap in, which
-      // over-translated the row and left the pinned screen mostly empty.
-      var getDist = function () { return Math.max(0, track.scrollWidth - track.clientWidth); };
-      if (getDist() <= 40) { document.documentElement.classList.remove("pin-mode"); return; }
-      var tween = gsap.to(track, {
-        x: function () { return -getDist(); }, ease: "none",
-        scrollTrigger: {
-          trigger: sec, start: "top top", end: function () { return "+=" + (getDist() + 400); },
-          pin: true, scrub: .7, anticipatePin: 1, invalidateOnRefresh: true
-        }
-      });
-      return function () {
-        if (tween.scrollTrigger) tween.scrollTrigger.kill();
-        tween.kill();
-        gsap.set(track, { x: 0 });
-        document.documentElement.classList.remove("pin-mode");
-      };
-    });
-  })();
+  /* ---- "How I can help": three rounds of bugs on the pinned/scrubbed version
+     (stale distance, empty pinned screens, felt "incomplete" mid-scrub) proved
+     that pattern too fragile for this row. Dropped in favor of the site's
+     already-reliable .reveal system (each .help card ships with it in the
+     HTML) plus main.js's existing native drag-scroll — simple, and it works. ---- */
 
   /* ---- Stats band: counters scrub with the natural scroll pass (no pin —
      stacked pins made the page feel scroll-jacked and laggy).

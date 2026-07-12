@@ -173,7 +173,6 @@
     row.addEventListener("click", function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
     // convert normal vertical wheel/trackpad scroll into horizontal scroll
     row.addEventListener("wheel", function (e) {
-      if (document.documentElement.classList.contains("pin-mode")) return; // GSAP owns scroll while pinned
       if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // already horizontal, let it be
       e.preventDefault();
       row.scrollLeft += e.deltaY;

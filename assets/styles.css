@@ -683,7 +683,7 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 .skill-cat .bubbles{margin-top:.4em}
 
 /* =========================================================================
-   GSAP motion layer — page transitions, SplitText words, pin-mode
+   GSAP motion layer — page transitions, SplitText words
    ========================================================================= */
 
 /* page transition curtain (element is created/animated by gsap-motion.js) */
@@ -693,12 +693,6 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 
 /* SplitText word reveals (.sec-head h2 / .xp h2 / .tool-cat h2) */
 .sw-word{display:inline-block;will-change:transform,opacity}
-
-/* horizontal pin mode for "How I can help" — GSAP drives .helps via transform;
-   hiding overflow neutralises main.js's native drag-scroll while pinned */
-html.pin-mode .helps{overflow:hidden;cursor:default;-webkit-mask-image:none;mask-image:none}
-html.pin-mode .helps.dragging{cursor:default}
-html.pin-mode .helps-sec{min-height:100svh;display:flex;flex-direction:column;justify-content:center}
 
 @media (prefers-reduced-motion:reduce){
   .page-transition{display:none}
