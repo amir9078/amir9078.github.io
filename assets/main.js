@@ -74,10 +74,7 @@
     }
     requestAnimationFrame(step);
   }
-  // .stats counters are scroll-scrubbed by gsap-motion.js — but only when GSAP
-  // actually runs; otherwise this generic count-up must keep covering them.
-  var gsapOwnsStats = !!(window.gsap && window.ScrollTrigger) && !reduce;
-  var nums = $$("[data-count]").filter(function (el) { return !gsapOwnsStats || !el.closest(".stats"); });
+  var nums = $$("[data-count]");
   if ("IntersectionObserver" in window) {
     var io2 = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {

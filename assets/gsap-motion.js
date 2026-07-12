@@ -112,47 +112,16 @@
     gsap.to(chartwrap, { autoAlpha: 1, x: 0, y: 0, rotate: 0, scale: 1, duration: 1.1, ease: "power3.out", delay: .3 });
   }
 
-  /* ---- hero chart line: scrub-drawn with scroll instead of a fixed on-reveal keyframe ---- */
-  (function heroChartDraw() {
-    var trend = $(".plot .trend");
-    var hero = $(".hero");
-    if (!trend || !hero) return;
-    if (!hasDraw || !hasST || reduce) return;
-    trend.style.animation = "none";
-    gsap.fromTo(trend, { drawSVG: "0%" }, {
-      drawSVG: "100%", ease: "none",
-      scrollTrigger: { trigger: hero, start: "top 75%", end: "bottom 55%", scrub: .6 }
-    });
-  })();
-
   /* ---- "How I can help": three rounds of bugs on the pinned/scrubbed version
      (stale distance, empty pinned screens, felt "incomplete" mid-scrub) proved
      that pattern too fragile for this row. Dropped in favor of the site's
      already-reliable .reveal system (each .help card ships with it in the
      HTML) plus main.js's existing native drag-scroll — simple, and it works. ---- */
 
-  /* ---- Stats band: counters scrub with the natural scroll pass (no pin —
-     stacked pins made the page feel scroll-jacked and laggy).
-     main.js's generic count-up excludes .stats [data-count] to avoid double-driving. ---- */
-  (function setupStatsScrub() {
-    var sec = $(".stats");
-    var nums = $$(".stats [data-count]");
-    if (!sec || !nums.length || !hasST || reduce) return;
-    var counters = nums.map(function (el) {
-      var target = parseFloat(el.getAttribute("data-count"));
-      var dec = +(el.getAttribute("data-dec") || 0);
-      el.textContent = (0).toFixed(dec);
-      return { el: el, target: target, dec: dec };
-    });
-    var obj = { p: 0 };
-    gsap.to(obj, {
-      p: 1, ease: "none",
-      scrollTrigger: { trigger: sec, start: "top 88%", end: "top 30%", scrub: .4 },
-      onUpdate: function () {
-        counters.forEach(function (c) { c.el.textContent = (c.target * obj.p).toFixed(c.dec); });
-      }
-    });
-  })();
+  /* ---- Stats band: the narrow scroll-scrub range often finished before a user
+     actually saw it move, reading as "the numbers don't animate." Dropped in
+     favor of the same reveal-triggered count-up main.js already runs for every
+     other [data-count] on the site — one reliable mechanism, no exceptions. ---- */
 
   /* ---- statement marquee: skew with scroll velocity ---- */
   (function marqueeSkew() {
