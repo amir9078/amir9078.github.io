@@ -152,33 +152,6 @@
     });
   }
 
-  /* ---- click-and-drag scroll for horizontal card rows ---- */
-  $$(".helps").forEach(function (row) {
-    var isDown = false, startX = 0, startScroll = 0, moved = false;
-    row.addEventListener("mousedown", function (e) {
-      isDown = true; moved = false; row.classList.add("dragging");
-      startX = e.pageX; startScroll = row.scrollLeft;
-    });
-    window.addEventListener("mousemove", function (e) {
-      if (!isDown) return;
-      var dx = e.pageX - startX;
-      if (Math.abs(dx) > 4) moved = true;
-      row.scrollLeft = startScroll - dx;
-    });
-    window.addEventListener("mouseup", function () {
-      if (!isDown) return;
-      isDown = false; row.classList.remove("dragging");
-    });
-    // suppress the click on a card if the pointer actually dragged
-    row.addEventListener("click", function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
-    // convert normal vertical wheel/trackpad scroll into horizontal scroll
-    row.addEventListener("wheel", function (e) {
-      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // already horizontal, let it be
-      e.preventDefault();
-      row.scrollLeft += e.deltaY;
-    }, { passive: false });
-  });
-
   /* ---- gallery lightbox (only for tiles with a real image) ---- */
   var lb = $("#lightbox"), lbImg = $("#lbImg");
   if (lb && lbImg) {

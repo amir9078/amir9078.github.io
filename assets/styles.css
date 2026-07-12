@@ -82,8 +82,8 @@ a{color:inherit;text-decoration:none}
 .serif-italic{font-style:italic}
 .signature{
   font-family:var(--signature);font-weight:700;font-style:normal;
-  font-size:1.32em;line-height:1;letter-spacing:.01em;
-  display:inline-block;transform:rotate(-2deg) translateY(.06em);
+  font-size:1.22em;line-height:1.3;letter-spacing:.01em;
+  display:inline-block;padding:.04em .18em .1em .02em;
 }
 .accent{color:var(--accent)}
 .u-mono{font-family:var(--mono);font-weight:500}
@@ -468,13 +468,14 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 .skip{position:absolute;left:-9999px;top:0;z-index:200;padding:10px 16px;background:var(--ink);color:var(--paper);border-radius:0 0 8px 0;font-family:var(--mono);font-size:.8rem}
 .skip:focus{left:0}
 
-/* AmiR wordmark logo (live vector text — crisp at any size) */
-.logo{font-family:var(--mono);font-weight:700;font-size:1.55rem;letter-spacing:-.05em;line-height:1;
+/* AmiR wordmark logo — handwritten signature, matching the hero's signed phrases */
+.logo{font-family:var(--signature);font-weight:700;font-size:2.15rem;letter-spacing:.01em;line-height:1;
+  padding:.06em .16em .12em .02em;
   background:linear-gradient(90deg,var(--accent),var(--pine),var(--blue),var(--accent));
   background-size:300% 100%;
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;display:inline-block}
 .logo .r{font-size:1em}
-.foot-top .logo{font-size:2.1rem}
+.foot-top .logo{font-size:2.6rem}
 @media (prefers-reduced-motion:no-preference){
   .logo{animation:sweep 7s linear infinite}
   .brand:hover .logo{animation-duration:1.6s}
@@ -555,21 +556,26 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
   .in .ba .bar{transition:none}
   .grad-sweep,.logo{animation:none!important}
   .sec-head.in .h-underline::after{transform:scaleX(1)}
+  .helps-track{animation:none;overflow-x:auto;max-width:100%}
+  .helps{overflow-x:auto}
+  .help[aria-hidden="true"]{display:none}
 }
 
 /* =========================================================================
    How I can help · page heroes · detail-page components · footer statement
    ========================================================================= */
 
-/* How I can help — horizontal scenario scroll */
-.helps{display:flex;gap:clamp(14px,1.8vw,22px);overflow-x:auto;padding:4px 4px 16px;margin-inline:-4px;
-  scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;cursor:grab;
-  scrollbar-width:none;-ms-overflow-style:none;
+/* How I can help — auto-playing marquee, same technique as .ticker/.bigline:
+   two identical sets of cards in a width:max-content track, translated -50%.
+   Pauses on hover; still fully keyboard/screen-reader reachable (only the
+   duplicate set is aria-hidden). */
+.helps{overflow:hidden;padding:4px 4px 16px;margin-inline:-4px;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 2%,#000 92%,transparent);
           mask-image:linear-gradient(90deg,transparent,#000 2%,#000 92%,transparent)}
-.helps.dragging{cursor:grabbing;scroll-snap-type:none}
-.helps::-webkit-scrollbar{display:none}
-.help{position:relative;flex:0 0 268px;scroll-snap-align:center;border:1px solid var(--line-2);border-radius:var(--radius);padding:clamp(24px,2.8vw,34px);background:var(--paper-2);overflow:hidden;
+.helps-track{display:flex;gap:clamp(14px,1.8vw,22px);width:max-content;animation:helpsScroll 48s linear infinite}
+.helps:hover .helps-track{animation-play-state:paused}
+@keyframes helpsScroll{to{transform:translateX(-50%)}}
+.help{position:relative;flex:0 0 268px;border:1px solid var(--line-2);border-radius:var(--radius);padding:clamp(24px,2.8vw,34px);background:var(--paper-2);overflow:hidden;
   transition:transform .5s var(--ease),box-shadow .5s,border-color .4s,background .4s}
 .help::before{content:"";position:absolute;left:0;top:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
 .help:hover{transform:translateY(-6px);box-shadow:0 26px 50px -34px rgba(var(--sh-rgb),.5),inset 0 1px 0 rgba(255,255,255,.05);background:var(--paper)}
@@ -753,7 +759,7 @@ body{counter-reset:sec}
 @keyframes orbitspin{to{transform:rotate(360deg)}}
 
 /* "How I can help" cards — indexed + color-coded per card */
-.helps{counter-reset:help}
+.helps-track{counter-reset:help}
 .help{counter-increment:help;--hc:var(--accent)}
 .help:nth-child(4n+2){--hc:var(--pine)}
 .help:nth-child(4n+3){--hc:var(--gold)}

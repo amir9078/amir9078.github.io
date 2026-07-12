@@ -44,7 +44,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..600&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..600&display=swap"></noscript>
-<link rel="stylesheet" href="assets/styles.css?v=12">
+<link rel="stylesheet" href="assets/styles.css?v=13">
 
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -231,47 +231,89 @@
     <h2 id="help-h"><span class="h-underline">Where I create impact</span></h2>
     <p class="lede">From raw data to shipped AI — the areas where I move the needle. Each one, measurable.</p>
   </div>
-  <div class="helps">
-    <article class="help reveal" data-d="1">
-      <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/><circle cx="12" cy="12" r="3"/></svg></span>
-      <h3>AI Integration <span class="up">▲</span></h3>
-      <p>Plugging LLMs &amp; AI APIs into the tools you already use.</p>
-    </article>
-    <article class="help reveal" data-d="2">
-      <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12a9 9 0 11-3-6.7M21 4v4h-4"/></svg></span>
-      <h3>Automation <span class="up">▲</span></h3>
-      <p>Zapier, Make &amp; scripts that delete hours of manual work.</p>
-    </article>
-    <article class="help reveal" data-d="3">
-      <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l6-6 4 4 7-7M14 5h5v5"/></svg></span>
-      <h3>Sales Analytics <span class="up">▲</span></h3>
-      <p>Pipelines, funnels &amp; forecasts that lift conversion.</p>
-    </article>
-    <article class="help reveal" data-d="4">
-      <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l16-7v16L3 13zM3 11v2M8 12.5V19l3 1v-6"/></svg></span>
-      <h3>Marketing <span class="up">▲</span></h3>
-      <p>Campaign, content &amp; channel analytics that scale reach.</p>
-    </article>
-    <article class="help reveal" data-d="1">
-      <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
-      <h3>Data Analysis <span class="up">▲</span></h3>
-      <p>Turning messy, scattered data into clear decisions.</p>
-    </article>
-    <article class="help reveal" data-d="2">
-      <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg></span>
-      <h3>Business Intelligence <span class="up">▲</span></h3>
-      <p>Power BI &amp; Tableau dashboards leaders actually use.</p>
-    </article>
-    <article class="help reveal" data-d="3">
-      <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"/></svg></span>
-      <h3>AI Development <span class="up">▲</span></h3>
-      <p>Building AI tools in the open — like Draftly.</p>
-    </article>
-    <article class="help reveal" data-d="4">
-      <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span>
-      <h3>CRM &amp; Pipelines <span class="up">▲</span></h3>
-      <p>Salesforce, Zoho, HubSpot &amp; Odoo, structured to convert.</p>
-    </article>
+  <div class="helps reveal">
+    <div class="helps-track">
+      <article class="help">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <h3>AI Integration <span class="up">▲</span></h3>
+        <p>Plugging LLMs &amp; AI APIs into the tools you already use.</p>
+      </article>
+      <article class="help">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12a9 9 0 11-3-6.7M21 4v4h-4"/></svg></span>
+        <h3>Automation <span class="up">▲</span></h3>
+        <p>Zapier, Make &amp; scripts that delete hours of manual work.</p>
+      </article>
+      <article class="help">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l6-6 4 4 7-7M14 5h5v5"/></svg></span>
+        <h3>Sales Analytics <span class="up">▲</span></h3>
+        <p>Pipelines, funnels &amp; forecasts that lift conversion.</p>
+      </article>
+      <article class="help">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l16-7v16L3 13zM3 11v2M8 12.5V19l3 1v-6"/></svg></span>
+        <h3>Marketing <span class="up">▲</span></h3>
+        <p>Campaign, content &amp; channel analytics that scale reach.</p>
+      </article>
+      <article class="help">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+        <h3>Data Analysis <span class="up">▲</span></h3>
+        <p>Turning messy, scattered data into clear decisions.</p>
+      </article>
+      <article class="help">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg></span>
+        <h3>Business Intelligence <span class="up">▲</span></h3>
+        <p>Power BI &amp; Tableau dashboards leaders actually use.</p>
+      </article>
+      <article class="help">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"/></svg></span>
+        <h3>AI Development <span class="up">▲</span></h3>
+        <p>Building AI tools in the open — like Draftly.</p>
+      </article>
+      <article class="help">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span>
+        <h3>CRM &amp; Pipelines <span class="up">▲</span></h3>
+        <p>Salesforce, Zoho, HubSpot &amp; Odoo, structured to convert.</p>
+      </article>
+      <article class="help" aria-hidden="true">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <h3>AI Integration <span class="up">▲</span></h3>
+        <p>Plugging LLMs &amp; AI APIs into the tools you already use.</p>
+      </article>
+      <article class="help" aria-hidden="true">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12a9 9 0 11-3-6.7M21 4v4h-4"/></svg></span>
+        <h3>Automation <span class="up">▲</span></h3>
+        <p>Zapier, Make &amp; scripts that delete hours of manual work.</p>
+      </article>
+      <article class="help" aria-hidden="true">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l6-6 4 4 7-7M14 5h5v5"/></svg></span>
+        <h3>Sales Analytics <span class="up">▲</span></h3>
+        <p>Pipelines, funnels &amp; forecasts that lift conversion.</p>
+      </article>
+      <article class="help" aria-hidden="true">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l16-7v16L3 13zM3 11v2M8 12.5V19l3 1v-6"/></svg></span>
+        <h3>Marketing <span class="up">▲</span></h3>
+        <p>Campaign, content &amp; channel analytics that scale reach.</p>
+      </article>
+      <article class="help" aria-hidden="true">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+        <h3>Data Analysis <span class="up">▲</span></h3>
+        <p>Turning messy, scattered data into clear decisions.</p>
+      </article>
+      <article class="help" aria-hidden="true">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg></span>
+        <h3>Business Intelligence <span class="up">▲</span></h3>
+        <p>Power BI &amp; Tableau dashboards leaders actually use.</p>
+      </article>
+      <article class="help" aria-hidden="true">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"/></svg></span>
+        <h3>AI Development <span class="up">▲</span></h3>
+        <p>Building AI tools in the open — like Draftly.</p>
+      </article>
+      <article class="help" aria-hidden="true">
+        <span class="help-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span>
+        <h3>CRM &amp; Pipelines <span class="up">▲</span></h3>
+        <p>Salesforce, Zoho, HubSpot &amp; Odoo, structured to convert.</p>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -710,6 +752,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js" defer></script>
 <script src="assets/gsap-motion.js?v=5" defer></script>
-<script src="assets/main.js?v=8" defer></script>
+<script src="assets/main.js?v=9" defer></script>
 </body>
 </html>
