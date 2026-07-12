@@ -71,7 +71,7 @@ main,header,footer{position:relative;z-index:1}
 
 /* ----- Type ------------------------------------------------------------- */
 h1,h2,h3,h4{font-family:var(--display);font-weight:700;line-height:1.04;letter-spacing:-.02em;font-optical-sizing:auto}
-h1{font-size:clamp(2.5rem,6.6vw,5.2rem);font-weight:700}
+h1{font-size:clamp(2.1rem,4.9vw,4rem);font-weight:700}
 h2{font-size:clamp(2rem,4.6vw,3.5rem)}
 h3{font-size:clamp(1.3rem,2.2vw,1.7rem);letter-spacing:-.01em}
 p{text-wrap:pretty}
@@ -464,7 +464,7 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 
 /* AmiR wordmark logo (live vector text — crisp at any size) */
 .logo{font-family:var(--mono);font-weight:700;font-size:1.55rem;letter-spacing:-.05em;line-height:1;
-  background:linear-gradient(90deg,var(--accent),var(--gold),var(--pine),var(--accent));
+  background:linear-gradient(90deg,var(--accent),var(--pine),var(--blue),var(--accent));
   background-size:300% 100%;
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;display:inline-block}
 .logo .r{font-size:1em}
@@ -476,7 +476,7 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 
 /* hero tagline */
 .hero-tag{font-family:var(--display);font-weight:500;font-size:clamp(1.35rem,2.7vw,2.05rem);letter-spacing:-.02em;color:var(--ink);margin-top:.55em}
-.grad-sweep{background:linear-gradient(90deg,var(--accent),var(--gold),var(--pine),var(--accent));background-size:300% 100%;
+.grad-sweep{background:linear-gradient(90deg,var(--accent),var(--pine),var(--blue),var(--accent));background-size:300% 100%;
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
 @media (prefers-reduced-motion:no-preference){.grad-sweep{animation:sweep 7s linear infinite}}
 @keyframes sweep{to{background-position:300% 0}}
@@ -595,7 +595,7 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 .crumb a{color:var(--ink-2);transition:color .25s}
 .crumb a:hover{color:var(--accent)}
 .crumb .sep{opacity:.5}
-.page-hero h1{font-size:clamp(2.4rem,6.2vw,4.6rem);font-weight:560;letter-spacing:-.02em;line-height:1.02;margin-bottom:.22em}
+.page-hero h1{font-size:clamp(2rem,4.6vw,3.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.06;margin-bottom:.22em}
 .page-hero .lede{font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--ink-2);max-width:60ch}
 .page-hero .lede a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 
@@ -703,7 +703,7 @@ html.pin-mode .helps-sec{min-height:100svh;display:flex;flex-direction:column;ju
    indexed color-coded cards, italic almanac numerals
    ========================================================================= */
 
-h1,h2,h3{text-wrap:balance}
+h2,h3{text-wrap:balance}
 
 /* oversized ghost section numerals (data-almanac folio marks) */
 body{counter-reset:sec}
@@ -734,9 +734,15 @@ body{counter-reset:sec}
   line-height:1.1;letter-spacing:-.02em;white-space:nowrap;padding:0 .38em;
   color:transparent;-webkit-text-stroke:1.5px var(--ink);
 }
-.bigline em{font-style:italic;color:var(--accent);-webkit-text-stroke:0}
+.bigline em{font-style:italic;color:var(--accent);-webkit-text-stroke:0;text-shadow:0 0 32px rgba(34,211,238,.5)}
 .bigline i{font-style:normal;color:var(--accent);font-size:clamp(1rem,2vw,1.5rem)}
 .bigline:hover .bl-track{animation-play-state:paused}
+/* counter-scrolling code ticker under the statement */
+.bl-track.bl-code{animation-direction:reverse;animation-duration:44s;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.bigline .code{font-family:var(--mono);font-size:clamp(.7rem,1.2vw,.9rem);font-weight:500;letter-spacing:.05em;
+  color:var(--ink-3);-webkit-text-stroke:0;padding:0 1.6em;white-space:nowrap}
+.bigline .code b{color:var(--pine);font-weight:600}
+.bigline .code u{color:var(--gold);text-decoration:none}
 
 /* spinning orbit badge on the portrait */
 .orbit{position:absolute;top:-30px;right:-24px;width:132px;height:132px;z-index:2;color:var(--ink)}

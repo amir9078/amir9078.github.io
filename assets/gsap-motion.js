@@ -93,9 +93,16 @@
     splitHeadingReveal(".xp h2");
     splitHeadingReveal(".tool-cat h2");
   }
-  // splitting before the webfont swaps in mismeasures word widths — wait for it.
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(runHeadingSplits);
-  else runHeadingSplits();
+  // splitting before the webfont swaps in mismeasures word widths — wait for it,
+  // then re-measure every pin/scrub distance against the final font metrics.
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () {
+      runHeadingSplits();
+      if (hasST) ScrollTrigger.refresh();
+    });
+  } else {
+    runHeadingSplits();
+  }
 
   /* ---- hero chartcard: dynamic asymmetric entrance (settles to the normal grid
      position — only the motion is bold, layout stays responsive-safe) ---- */
@@ -129,12 +136,15 @@
     mm.add("(min-width: 761px)", function () {
       document.documentElement.classList.add("pin-mode");
       track.scrollLeft = 0;
-      var dist = track.scrollWidth - track.clientWidth;
-      if (dist <= 40) { document.documentElement.classList.remove("pin-mode"); return; }
+      // measured lazily and re-measured on every ScrollTrigger refresh — a
+      // distance baked at load time goes stale once webfonts swap in, which
+      // over-translated the row and left the pinned screen mostly empty.
+      var getDist = function () { return Math.max(0, track.scrollWidth - track.clientWidth); };
+      if (getDist() <= 40) { document.documentElement.classList.remove("pin-mode"); return; }
       var tween = gsap.to(track, {
-        x: -dist, ease: "none",
+        x: function () { return -getDist(); }, ease: "none",
         scrollTrigger: {
-          trigger: sec, start: "top top", end: "+=" + (dist + 400),
+          trigger: sec, start: "top top", end: function () { return "+=" + (getDist() + 400); },
           pin: true, scrub: .7, anticipatePin: 1, invalidateOnRefresh: true
         }
       });
