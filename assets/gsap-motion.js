@@ -55,14 +55,14 @@
      spans, where per-word splitting would break the background-clip:text sweep ---- */
   function fadeUpReveal(el, opts) {
     if (!el || reduce) return;
-    gsap.set(el, { transition: "none", autoAlpha: 0, y: (opts && opts.y) || 22, filter: "blur(10px)" });
+    gsap.set(el, { transition: "none", autoAlpha: 0, y: (opts && opts.y) || 22 });
     gsap.to(el, {
-      autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power2.out",
+      autoAlpha: 1, y: 0, duration: 1, ease: "power2.out",
       delay: (opts && opts.delay) || 0
     });
   }
 
-  /* ---- hero h1 (index): additive blur/fade layered on top of the existing
+  /* ---- hero h1 (index): additive fade/rise layered on top of the existing
      untouched line-mask CSS reveal — never touches the gradient <em> ---- */
   var heroH1 = $(".hero h1");
   if (heroH1) fadeUpReveal(heroH1, { y: 14, delay: .1 });
@@ -134,7 +134,7 @@
       var tween = gsap.to(track, {
         x: -dist, ease: "none",
         scrollTrigger: {
-          trigger: sec, start: "top top+=88", end: "+=" + (dist + 500),
+          trigger: sec, start: "top top", end: "+=" + (dist + 400),
           pin: true, scrub: .7, anticipatePin: 1, invalidateOnRefresh: true
         }
       });
@@ -147,33 +147,45 @@
     });
   })();
 
-  /* ---- Stats band: pin briefly, scrub-count in sync with scroll.
+  /* ---- Stats band: counters scrub with the natural scroll pass (no pin —
+     stacked pins made the page feel scroll-jacked and laggy).
      main.js's generic count-up excludes .stats [data-count] to avoid double-driving. ---- */
-  (function setupStatsPin() {
+  (function setupStatsScrub() {
     var sec = $(".stats");
     var nums = $$(".stats [data-count]");
     if (!sec || !nums.length || !hasST || reduce) return;
-    var mm = gsap.matchMedia();
-    mm.add("(min-width: 901px)", function () {
-      var counters = nums.map(function (el) {
-        var target = parseFloat(el.getAttribute("data-count"));
-        var dec = +(el.getAttribute("data-dec") || 0);
-        el.textContent = (0).toFixed(dec);
-        return { el: el, target: target, dec: dec };
-      });
-      var obj = { p: 0 };
-      var tween = gsap.to(obj, {
-        p: 1, ease: "power1.out",
-        scrollTrigger: { trigger: sec, start: "top top+=88", end: "+=650", pin: true, scrub: .5, anticipatePin: 1 },
-        onUpdate: function () {
-          counters.forEach(function (c) { c.el.textContent = (c.target * obj.p).toFixed(c.dec); });
+    var counters = nums.map(function (el) {
+      var target = parseFloat(el.getAttribute("data-count"));
+      var dec = +(el.getAttribute("data-dec") || 0);
+      el.textContent = (0).toFixed(dec);
+      return { el: el, target: target, dec: dec };
+    });
+    var obj = { p: 0 };
+    gsap.to(obj, {
+      p: 1, ease: "none",
+      scrollTrigger: { trigger: sec, start: "top 88%", end: "top 30%", scrub: .4 },
+      onUpdate: function () {
+        counters.forEach(function (c) { c.el.textContent = (c.target * obj.p).toFixed(c.dec); });
+      }
+    });
+  })();
+
+  /* ---- statement marquee: skew with scroll velocity ---- */
+  (function marqueeSkew() {
+    var band = $(".bigline");
+    if (!band || !hasST || reduce) return;
+    var proxy = { skew: 0 }, clamp = gsap.utils.clamp(-6, 6);
+    ScrollTrigger.create({
+      onUpdate: function (self) {
+        var s = clamp(self.getVelocity() / -300);
+        if (Math.abs(s) > Math.abs(proxy.skew)) {
+          proxy.skew = s;
+          gsap.to(proxy, {
+            skew: 0, duration: .8, ease: "power3", overwrite: true,
+            onUpdate: function () { band.style.transform = "skewX(" + proxy.skew + "deg)"; }
+          });
         }
-      });
-      return function () {
-        if (tween.scrollTrigger) tween.scrollTrigger.kill();
-        tween.kill();
-        counters.forEach(function (c) { c.el.textContent = c.target.toFixed(c.dec); });
-      };
+      }
     });
   })();
 

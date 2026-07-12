@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Shaikh Amir Hussain monogram">
-  <rect width="64" height="64" rx="15" fill="#1C1813"/>
+  <rect width="64" height="64" rx="15" fill="#0B0F14"/>
   <!-- ascending data line -->
-  <polyline points="12,46 26,38 38,42 52,18" fill="none" stroke="#E2431C" stroke-width="3.2"
+  <polyline points="12,46 26,38 38,42 52,18" fill="none" stroke="#22D3EE" stroke-width="3.2"
             stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
-  <circle cx="52" cy="18" r="4" fill="#E2431C"/>
+  <circle cx="52" cy="18" r="4" fill="#22D3EE"/>
   <!-- A -->
   <path d="M20 50 L31 16 L34 16 L45 50 L39.5 50 L37 41 L28 41 L25.5 50 Z M29.4 36 L35.6 36 L32.5 24.5 Z"
-        fill="#F3EDE1"/>
+        fill="#E6EDF3"/>
 </svg>
