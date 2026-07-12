@@ -7,6 +7,29 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
+  /* ---- ambient code wallpaper (faint, behind everything, same on every page) ---- */
+  (function () {
+    var snippets = [
+      'const growth = automate("data");',
+      'SELECT insight FROM chaos WHERE noise = 0;',
+      'df.clean().model().decide()',
+      'await ship(draftly)',
+      'zap.trigger("revenue")',
+      'git push origin impact',
+      'function buildBusiness(data, ai) { return momentum; }',
+      'if (manualWork) { automate(); }',
+      'model.fit(data).predict(future)',
+      'export const impact = data + ai;'
+    ];
+    var text = "", i = 0;
+    while (text.length < 9000) { text += snippets[i % snippets.length] + "    "; i++; }
+    var bg = document.createElement("div");
+    bg.className = "code-bg";
+    bg.setAttribute("aria-hidden", "true");
+    bg.textContent = text;
+    document.body.appendChild(bg);
+  })();
+
   /* ---- year ---- */
   var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
 

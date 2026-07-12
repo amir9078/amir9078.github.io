@@ -69,6 +69,21 @@ body::after{
   content:"";position:fixed;inset:0;z-index:0;pointer-events:none;mix-blend-mode:screen;opacity:.04;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
+/* ambient code wallpaper — a faint wall of real-looking code sits behind every
+   page (built by main.js so it's one shared string, not duplicated per page) */
+.code-bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;user-select:none;overflow:hidden;
+  font-family:var(--mono);font-size:11px;line-height:1.9;letter-spacing:.02em;
+  color:var(--ink);opacity:.05;white-space:pre-wrap;word-break:break-word;padding:60px;
+  background-image:repeating-linear-gradient(rgba(230,237,243,.03) 0px,rgba(230,237,243,.03) 1px,transparent 1px,transparent 3px);
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 15%,#000 0%,transparent 78%);
+          mask-image:radial-gradient(120% 90% at 50% 15%,#000 0%,transparent 78%);
+}
+@media (prefers-reduced-motion:no-preference){
+  .code-bg{animation:codedrift 100s linear infinite}
+}
+@keyframes codedrift{to{transform:translateY(-3%)}}
 main,header,footer{position:relative;z-index:1}
 
 /* ----- Type ------------------------------------------------------------- */
@@ -449,7 +464,7 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 }
 
 /* print */
-@media print{body::before,body::after,.topbar,.totop,.cursor,.cursor-ring{display:none}body{background:#fff}}
+@media print{body::before,body::after,.code-bg,.topbar,.totop,.cursor,.cursor-ring{display:none}body{background:#fff}}
 
 /* =========================================================================
    Revision additions — logo, tagline, tools, gallery, exp charts, lightbox
@@ -726,7 +741,7 @@ body{counter-reset:sec}
 
 /* statement marquee — huge outlined serif, filled accent on the payoff */
 .bigline{overflow:hidden;border-block:2px solid var(--rule);padding:clamp(16px,2.4vw,28px) 0;position:relative;z-index:1;background:var(--paper)}
-.bl-track{display:flex;align-items:center;width:max-content;animation:scroll 26s linear infinite}
+.bl-track{display:flex;align-items:center;width:max-content;animation:scroll 60s linear infinite}
 .bigline span,.bigline em{
   font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,6.5vw,5rem);
   line-height:1.1;letter-spacing:-.02em;white-space:nowrap;padding:0 .38em;
