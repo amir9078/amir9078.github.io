@@ -45,7 +45,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..600&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..600&display=swap"></noscript>
-<link rel="stylesheet" href="assets/styles.css?v=15">
+<link rel="stylesheet" href="assets/styles.css?v=16">
 
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -294,6 +294,28 @@
         <h3>CRM &amp; Pipelines <span class="up">▲</span></h3>
         <p>Salesforce, Zoho, HubSpot &amp; Odoo, structured to convert.</p>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Interactive: diagnose your problem ===== -->
+<section class="wrap fixit-sec" id="diagnose" aria-labelledby="fixit-h">
+  <div class="sec-head reveal">
+    <span class="idx">Interactive</span>
+    <h2 id="fixit-h"><span class="h-underline">What's slowing you down?</span></h2>
+    <p class="lede">Pick your problem. I'll show you exactly how I'd fix it — then tell me about yours.</p>
+  </div>
+  <div class="fixit reveal">
+    <div class="fixit-picks" role="list">
+      <button class="fixit-pick" type="button" data-fix="spreadsheets">Drowning in spreadsheets?</button>
+      <button class="fixit-pick" type="button" data-fix="ai">No AI strategy?</button>
+      <button class="fixit-pick" type="button" data-fix="manual">Manual busywork everywhere?</button>
+      <button class="fixit-pick" type="button" data-fix="scattered">Data scattered across tools?</button>
+      <button class="fixit-pick" type="button" data-fix="reporting">Reporting takes forever?</button>
+      <button class="fixit-pick" type="button" data-fix="growth">Missing growth signals?</button>
+    </div>
+    <div class="fixit-out" id="fixitOut" aria-live="polite">
+      <span class="fixit-idle">$ select a problem above<span class="term-caret" aria-hidden="true"></span></span>
     </div>
   </div>
 </section>
@@ -739,6 +761,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js" defer></script>
 <script src="assets/gsap-motion.js?v=6" defer></script>
-<script src="assets/main.js?v=11" defer></script>
+<script src="assets/main.js?v=12" defer></script>
 </body>
 </html>

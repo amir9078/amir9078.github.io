@@ -81,27 +81,34 @@
     if (heroH1) heroH1.classList.add("in");
   }
 
-  /* ---- count-up numbers ---- */
+  /* ---- count-up numbers — re-plays every time the number scrolls back into view ---- */
   function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
   function countUp(el) {
     var target = parseFloat(el.getAttribute("data-count"));
     var dec = (el.getAttribute("data-dec") | 0);
     if (reduce) { el.textContent = target.toFixed(dec); return; }
+    if (el._countRaf) cancelAnimationFrame(el._countRaf);
     var dur = 1500, start = null;
     function step(ts) {
       if (!start) start = ts;
       var p = Math.min((ts - start) / dur, 1);
       el.textContent = (target * easeOut(p)).toFixed(dec);
-      if (p < 1) requestAnimationFrame(step);
+      if (p < 1) el._countRaf = requestAnimationFrame(step);
       else el.textContent = target.toFixed(dec);
     }
-    requestAnimationFrame(step);
+    el._countRaf = requestAnimationFrame(step);
   }
   var nums = $$("[data-count]");
   if ("IntersectionObserver" in window) {
     var io2 = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { countUp(e.target); io2.unobserve(e.target); }
+        if (e.isIntersecting) {
+          countUp(e.target);
+        } else if (!reduce) {
+          if (e.target._countRaf) cancelAnimationFrame(e.target._countRaf);
+          var dec = (e.target.getAttribute("data-dec") | 0);
+          e.target.textContent = (0).toFixed(dec);
+        }
       });
     }, { threshold: 0.6 });
     nums.forEach(function (el) { io2.observe(el); });
@@ -194,5 +201,31 @@
     if (lbClose) lbClose.addEventListener("click", closeLb);
     lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLb(); });
+  }
+
+  /* ---- interactive "diagnose your problem" mini-game ---- */
+  var fixitOut = $("#fixitOut");
+  if (fixitOut) {
+    var FIXIT = {
+      spreadsheets: { a: "I replace the spreadsheet maze with a single Power BI or Tableau dashboard your team actually opens.", proof: "+46% sales lift at Nexford University" },
+      ai: { a: "I design and ship the AI layer — from prompt-engineered workflows to a shipped product like Draftly.", proof: "Built & maintain Draftly in the open" },
+      manual: { a: "I map the repetitive steps and automate them with Zapier, Make or Power Automate — hours back every week.", proof: "−65% reporting effort at Confidential" },
+      scattered: { a: "I unify every source — CRM, analytics, exports — into one trusted reporting layer.", proof: "+40% data accuracy at HSI" },
+      reporting: { a: "I build the pipeline once so reports generate themselves instead of getting rebuilt every week.", proof: "−60% report-generation time at HSI" },
+      growth: { a: "I dig into the data for the signal everyone else is missing, and turn it into a plan.", proof: "+150% LinkedIn engagement at HSI" }
+    };
+    $$(".fixit-pick").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        $$(".fixit-pick").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        var d = FIXIT[btn.getAttribute("data-fix")];
+        if (!d) return;
+        fixitOut.innerHTML =
+          '<span class="q">$ diagnosis: ' + btn.textContent + '</span>' +
+          '<span class="a">' + d.a + '</span>' +
+          '<span class="proof">' + d.proof + '</span>' +
+          '<a class="fixit-cta" href="#contact">Let\'s fix this <span class="arr">→</span></a>';
+      });
+    });
   }
 })();
