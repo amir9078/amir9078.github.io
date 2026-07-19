@@ -10,7 +10,7 @@
   </defs>
   <rect width="1200" height="630" fill="url(#g)"/>
   <rect width="1200" height="630" fill="url(#grid)"/>
-  <rect x="0" y="0" width="1200" height="10" fill="#22D3EE"/>
+  <rect x="0" y="0" width="1200" height="10" fill="#FF3B30"/>
 
   <!-- edition line -->
   <text x="80" y="92" font-family="'JetBrains Mono',monospace" font-size="20" letter-spacing="6" fill="#5E7288">
@@ -20,21 +20,21 @@
 
   <!-- name -->
   <text x="78" y="248" font-family="Syne, sans-serif" font-weight="700" font-size="96" letter-spacing="-3" fill="#E6EDF3">Shaikh Amir Hussain</text>
-  <text x="80" y="318" font-family="Syne, sans-serif" font-weight="700" font-size="50" fill="#E6EDF3">Data Analyst <tspan fill="#22D3EE">→</tspan> AI Builder</text>
+  <text x="80" y="318" font-family="Syne, sans-serif" font-weight="700" font-size="50" fill="#E6EDF3">Data Analyst <tspan fill="#FF3B30">→</tspan> AI Builder</text>
 
   <text x="80" y="372" font-family="'Schibsted Grotesk',sans-serif" font-size="25" fill="#9DAFC2">Google-certified · 4+ yrs · turning data into decisions across 60+ countries.</text>
 
   <!-- mini ascending chart -->
   <polyline points="80,470 230,452 380,460 530,500 530,500" fill="none"/>
   <polyline points="80,500 250,476 420,486 600,430 760,392 820,330"
-            fill="none" stroke="#22D3EE" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="820" cy="330" r="9" fill="#22D3EE"/>
+            fill="none" stroke="#FF3B30" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="820" cy="330" r="9" fill="#FF3B30"/>
 
   <!-- stat blocks -->
   <g font-family="Syne, sans-serif" fill="#E6EDF3">
-    <text x="80" y="566" font-size="58" font-weight="700">+46<tspan font-size="34" fill="#22D3EE">%</tspan></text>
-    <text x="300" y="566" font-size="58" font-weight="700">+150<tspan font-size="34" fill="#22D3EE">%</tspan></text>
-    <text x="560" y="566" font-size="58" font-weight="700">99.9<tspan font-size="34" fill="#22D3EE">%</tspan></text>
+    <text x="80" y="566" font-size="58" font-weight="700">+46<tspan font-size="34" fill="#FF3B30">%</tspan></text>
+    <text x="300" y="566" font-size="58" font-weight="700">+150<tspan font-size="34" fill="#FF3B30">%</tspan></text>
+    <text x="560" y="566" font-size="58" font-weight="700">99.9<tspan font-size="34" fill="#FF3B30">%</tspan></text>
   </g>
   <g font-family="'JetBrains Mono',monospace" font-size="15" letter-spacing="2" fill="#5E7288">
     <text x="82" y="592">SALES LIFT</text>
@@ -45,8 +45,8 @@
   <!-- monogram -->
   <g transform="translate(980,430)">
     <rect width="140" height="140" rx="30" fill="#10161F" stroke="#3D4E63" stroke-width="2"/>
-    <polyline points="26,100 56,82 82,90 114,40" fill="none" stroke="#22D3EE" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="114" cy="40" r="8.5" fill="#22D3EE"/>
+    <polyline points="26,100 56,82 82,90 114,40" fill="none" stroke="#FF3B30" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="114" cy="40" r="8.5" fill="#FF3B30"/>
     <path d="M44 110 L68 36 L73 36 L97 110 L85 110 L79 90 L60 90 L55 110 Z M62 80 L77 80 L70 53 Z" fill="#E6EDF3"/>
   </g>
   <text x="985" y="600" font-family="'JetBrains Mono',monospace" font-size="16" letter-spacing="3" fill="#5E7288">mthedatawizard</text>
