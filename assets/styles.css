@@ -224,6 +224,10 @@ section{padding-block:clamp(64px,9vw,140px)}
 .term-body .term-out{color:var(--ink-2);margin:.1em 0 .95em;padding-left:1.4em}
 .term-body .term-out.accent{color:var(--accent)}
 .term-body .term-out.good{color:var(--pine)}
+.term-body .cmd{color:var(--pine)}
+.term-body .flag{color:var(--ink-3)}
+.term-body .arg{color:var(--gold)}
+.term-body .var{color:var(--blue)}
 .term-caret{display:inline-block;width:.5em;height:1em;background:var(--accent);margin-left:.3em;vertical-align:-.15em;animation:caret 1.1s steps(1) infinite}
 
 /* ----- Interactive: diagnose your problem ---------------------------------- */
@@ -797,6 +801,7 @@ body{counter-reset:sec}
   color:var(--ink-3);-webkit-text-stroke:0;padding:0 1.6em;white-space:nowrap}
 .bigline .code b{color:var(--pine);font-weight:600}
 .bigline .code u{color:var(--gold);text-decoration:none}
+.bigline .code i{color:var(--blue);font-style:italic}
 
 /* spinning orbit badge on the portrait */
 .orbit{position:absolute;top:-30px;right:-24px;width:132px;height:132px;z-index:2;color:var(--ink)}
