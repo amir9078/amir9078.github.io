@@ -539,16 +539,19 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
   padding:.06em .16em .12em .02em;color:var(--ink);display:inline-block}
 .logo .r{font-size:1em;color:var(--accent)}
 .foot-top .logo{font-size:2.6rem}
+/* the name glitches on its own, everywhere it appears: brief RGB-split
+   bursts on a long quiet cycle (constant flicker would be unbearable) */
 @media (prefers-reduced-motion:no-preference){
-  .logo{animation:glow 3.4s ease-in-out infinite}
-  .brand:hover .logo{animation-duration:1s}
+  .logo{animation:glitchburst 4.2s steps(1) infinite}
+  .foot-statement .logo{animation-delay:-2.1s}
 }
-@keyframes glow{0%,100%{text-shadow:0 0 0 rgba(var(--accent-rgb),0)}50%{text-shadow:0 0 16px rgba(var(--accent-rgb),.55)}}
 
 /* hero tagline */
 .hero-tag{font-family:var(--display);font-weight:500;font-size:clamp(1.05rem,3.4vw,2.05rem);letter-spacing:-.02em;color:var(--ink);margin-top:.55em;white-space:nowrap}
 .grad-sweep{color:var(--accent);font-style:italic}
-@media (prefers-reduced-motion:no-preference){.grad-sweep{animation:glow 3.4s ease-in-out infinite}}
+@media (prefers-reduced-motion:no-preference){
+  .grad-sweep,.contact h2 em{animation:glitchburst 5.6s steps(1) -1.6s infinite}
+}
 
 /* animated heading underline */
 .h-underline{position:relative;display:inline}
@@ -884,15 +887,30 @@ html::after{
 .avail::before{content:"[";color:var(--ink-3);font-size:1.1em}
 .avail::after{content:"]";color:var(--ink-3);font-size:1.1em}
 
-/* RGB-split glitch on the signature logo, hover only */
+/* RGB-split glitch. glitchburst = idle cycle (quiet ~87% of the time, then
+   a ~0.4s burst); glitch = the continuous version, used on hover to
+   intensify. Same shadows, different duty cycle. */
+@keyframes glitchburst{
+  0%,86%,100%{text-shadow:none}
+  87%{text-shadow:2px 0 var(--accent),-2px 0 var(--blue)}
+  89%{text-shadow:-2px 0 var(--accent),2px 0 var(--blue)}
+  91%{text-shadow:1.5px 0 var(--blue),-1.5px 0 var(--accent)}
+  93%{text-shadow:2px 0 var(--accent),-2px 0 var(--blue)}
+  95%{text-shadow:none}
+}
 @media (prefers-reduced-motion:no-preference){
   .brand:hover .logo{animation:glitch .35s steps(2) infinite}
+  .page-transition .pt-mark{animation:glitch .5s steps(2) infinite}
 }
 @keyframes glitch{
   0%{text-shadow:2px 0 var(--accent),-2px 0 var(--blue)}
   50%{text-shadow:-2px 0 var(--accent),2px 0 var(--blue)}
   100%{text-shadow:1px 0 var(--blue),-1px 0 var(--accent)}
 }
+
+/* hero terminal window chrome: classic traffic lights in theme colors */
+.chartcard .cc-dots i:nth-child(2){background:var(--gold)}
+.chartcard .cc-dots i:nth-child(3){background:var(--pine)}
 
 /* keyboard focus reads as an active selection */
 a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
