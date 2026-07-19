@@ -271,4 +271,58 @@
       fixitInput.addEventListener("keydown", function (e) { if (e.key === "Enter") runCustom(); });
     }
   }
+
+  /* ---- live session statusline: shows the section being read + scroll % ---- */
+  (function () {
+    var page = (location.pathname.split("/").pop() || "index.html").replace(/\.html$/, "") || "index";
+    var rl = document.createElement("div");
+    rl.className = "readline";
+    rl.setAttribute("aria-hidden", "true");
+    rl.innerHTML = '<span class="rl-dot"></span><span class="rl-path"></span><span class="rl-pct"></span><span class="rl-caret"></span>';
+    document.body.appendChild(rl);
+    var pathEl = $(".rl-path", rl), pctEl = $(".rl-pct", rl);
+    var marks = $$("section[id], article[id]");
+    var lastText = "";
+    function update() {
+      var t = window.pageYOffset || document.documentElement.scrollTop;
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = h > 0 ? Math.round((t / h) * 100) : 0;
+      var current = "";
+      var line = window.innerHeight * 0.4;
+      for (var i = 0; i < marks.length; i++) {
+        if (marks[i].getBoundingClientRect().top <= line) current = marks[i].id;
+      }
+      var text = "~/" + page + (current ? "#" + current : "") + "|" + pct;
+      if (text !== lastText) {
+        lastText = text;
+        pathEl.textContent = "~/" + page + (current ? "#" + current : "");
+        pctEl.textContent = pct + "%";
+      }
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+  })();
+
+  /* ---- section labels type themselves in as they scroll into view ---- */
+  (function () {
+    var labels = $$(".idx, .tool-cat .ci");
+    if (!labels.length || reduce || !("IntersectionObserver" in window)) return;
+    /* labels keep their full text until the observer actually fires — if it
+       never does (headless renderers, prerender), nothing ships blank */
+    function typeIn(el) {
+      var full = el.textContent, i = 0;
+      el.textContent = "";
+      (function step() {
+        i++;
+        el.textContent = full.slice(0, i);
+        if (i < full.length) setTimeout(step, 26);
+      })();
+    }
+    var ioT = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { typeIn(e.target); ioT.unobserve(e.target); }
+      });
+    }, { threshold: 0.5, rootMargin: "0px 0px -4% 0px" });
+    labels.forEach(function (el) { ioT.observe(el); });
+  })();
 })();
