@@ -126,12 +126,13 @@ section{padding-block:clamp(64px,9vw,140px)}
 .sec-head h2{margin-top:14px;max-width:16ch}
 .sec-head .lede{margin-top:16px;max-width:54ch;color:var(--ink-2);font-size:1.08rem}
 .idx{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;color:var(--ink-3)}
+.idx::before{content:"// ";color:var(--ink-3)}
 
 /* ----- Buttons / links -------------------------------------------------- */
 .btn{
   --bg:var(--ink);--fg:var(--paper);
-  display:inline-flex;align-items:center;gap:.6em;
-  font-family:var(--sans);font-weight:600;font-size:.96rem;letter-spacing:-.01em;
+  display:inline-flex;align-items:center;gap:.55em;
+  font-family:var(--mono);font-weight:600;font-size:.86rem;letter-spacing:0;
   padding:.85em 1.35em;border-radius:100px;border:1.5px solid var(--ink);
   background:var(--bg);color:var(--fg);cursor:pointer;
   transition:transform .35s var(--ease),background .3s,color .3s,box-shadow .35s;
@@ -141,6 +142,7 @@ section{padding-block:clamp(64px,9vw,140px)}
 .btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px -12px rgba(var(--sh-rgb),.5)}
 .btn-accent{--bg:var(--accent);--fg:var(--on-accent);border-color:var(--accent)}
 .btn-accent:hover{box-shadow:0 12px 34px -10px rgba(var(--accent-rgb),.55)}
+.btn-accent::before{content:"$";opacity:.6;font-weight:400}
 .btn-ghost{--bg:transparent;--fg:var(--ink)}
 .btn-ghost:hover{--bg:var(--ink);--fg:var(--paper)}
 
@@ -166,8 +168,8 @@ section{padding-block:clamp(64px,9vw,140px)}
 .brand .mark{width:30px;height:30px;flex:none}
 .brand b{font-weight:600}
 .brand .tld{color:var(--accent)}
-.nav{display:flex;align-items:center;gap:30px}
-.nav a.navlink{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);transition:color .25s;position:relative}
+.nav{display:flex;align-items:center;gap:clamp(14px,2.4vw,26px)}
+.nav a.navlink{font-family:var(--mono);font-size:.74rem;letter-spacing:0;color:var(--ink-2);transition:color .25s;position:relative;white-space:nowrap}
 .nav a.navlink:hover,.nav a.navlink.active{color:var(--ink)}
 .nav a.navlink.active::before{content:"";position:absolute;left:-12px;top:50%;width:5px;height:5px;border-radius:50%;background:var(--accent);transform:translateY(-50%)}
 .nav .btn{padding:.6em 1.05em;font-size:.85rem}
@@ -418,7 +420,7 @@ section{padding-block:clamp(64px,9vw,140px)}
 .contact h2 em{color:var(--accent)}
 .contact .sub{color:var(--ink-2);max-width:48ch;margin:0 auto 2.4em;font-size:1.1rem}
 .contact-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-.ccard{display:flex;align-items:center;gap:.8em;padding:1em 1.4em;border:1.5px solid var(--line-2);border-radius:100px;color:var(--ink);font-weight:600;transition:transform .35s var(--ease),background .3s,color .3s,border-color .3s}
+.ccard{display:flex;align-items:center;gap:.8em;padding:1em 1.4em;border:1.5px solid var(--line-2);border-radius:100px;color:var(--ink);font-family:var(--mono);font-size:.92rem;font-weight:600;transition:transform .35s var(--ease),background .3s,color .3s,border-color .3s}
 .ccard svg{width:20px;height:20px}
 .ccard span{display:inline-flex;align-items:center;gap:.5em;line-height:1.2}
 .ccard .go{font-family:var(--mono);font-size:.85em;opacity:.5;transition:transform .35s var(--ease),opacity .3s}
@@ -487,12 +489,16 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
   .case .c-metric .links,.case .c-metric .bars{justify-content:flex-start}
   .kit-grid,.cred-grid,.stats .grid{}
 }
-@media (max-width:760px){
+/* nav gets its own, wider breakpoint: the path-style labels (~/experience)
+   need more room in a single row than the old word-only labels did */
+@media (max-width:900px){
   .nav{position:fixed;inset:88px var(--gutter) auto var(--gutter);background:var(--paper);border-radius:1.5rem;flex-direction:column;align-items:flex-start;gap:0;padding:8px var(--gutter) 22px;border:1px solid var(--line);transform:translateY(-130%);transition:transform .45s var(--ease);box-shadow:0 20px 40px -30px rgba(var(--sh-rgb),.6)}
   .nav.open{transform:none}
   .nav a.navlink{padding:14px 0;width:100%;border-bottom:1px solid var(--line);font-size:.82rem}
   .nav .btn{margin-top:14px;width:100%;justify-content:center}
   .nav-toggle{display:flex}
+}
+@media (max-width:760px){
   .stats .grid{grid-template-columns:repeat(2,1fr)}
   .stat:nth-child(3n){border-right:1px solid var(--line)}
   .stat:nth-child(2n){border-right:0}
@@ -696,6 +702,7 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 .tool-cat:first-child{border-top:0;padding-top:0}
 .tool-cat h2{font-size:clamp(1.4rem,2.8vw,2rem);margin-bottom:.2em}
 .tool-cat .ci{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:1.4em;display:block}
+.tool-cat .ci::before{content:"// "}
 .trow{display:grid;grid-template-columns:200px 1fr;gap:10px 28px;padding:16px 0;border-top:1px dashed var(--line)}
 .trow:first-of-type{border-top:0}
 .trow .tn{font-family:var(--display);font-weight:560;font-size:1.15rem;display:flex;align-items:center;gap:.5em}
