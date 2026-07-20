@@ -191,8 +191,6 @@ section{padding-block:clamp(64px,9vw,140px)}
 }
 .edition .dot{display:inline-flex;align-items:center;gap:.5em}
 .edition .pulse{width:7px;height:7px;border-radius:50%;background:var(--pine);position:relative}
-.edition .pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--pine);animation:pulse 2.4s ease-out infinite}
-@keyframes pulse{0%{transform:scale(.6);opacity:.8}100%{transform:scale(1.8);opacity:0}}
 
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,70px);align-items:center}
 .hero h1{margin:.32em 0 .1em}
@@ -278,11 +276,6 @@ section{padding-block:clamp(64px,9vw,140px)}
 .chip.c1{top:-14px;right:8%;color:var(--pine)}
 .chip.c2{bottom:34px;left:-16px;color:var(--accent)}
 .chip .ar{color:var(--pine)}
-@media (prefers-reduced-motion:no-preference){
-  .chip{animation:float 6s ease-in-out infinite}
-  .chip.c2{animation-delay:-3s}
-}
-@keyframes float{50%{transform:translateY(-9px)}}
 
 /* ----- Stats band ------------------------------------------------------- */
 .stats{background:var(--paper-2);color:var(--ink);position:relative;z-index:1;border-block:1px solid var(--line)}
@@ -321,8 +314,7 @@ section{padding-block:clamp(64px,9vw,140px)}
 .dispatch.feature p{color:var(--ink-2)}
 .dispatch.feature .link-u{color:var(--ink)}
 .d-kicker{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:.6em}
-.d-kicker .live{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(var(--accent-rgb),.6);animation:beat 1.8s infinite}
-@keyframes beat{50%{box-shadow:0 0 0 6px rgba(var(--accent-rgb),0)}}
+.d-kicker .live{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.25)}
 .dispatch h3{margin:.7em 0 .35em;font-size:clamp(1.35rem,2.4vw,1.9rem)}
 .dispatch p{color:var(--ink-2);margin-bottom:1em;max-width:52ch}
 .dispatch .d-meta{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:1em;display:flex;gap:14px;flex-wrap:wrap}
@@ -431,8 +423,7 @@ section{padding-block:clamp(64px,9vw,140px)}
 .ccard.li:hover{background:#0A66C2;border-color:#0A66C2;color:#fff}
 .ccard.em:hover{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .avail{margin-top:2.4em;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:inline-flex;align-items:center;gap:.7em}
-.avail .pulse{width:8px;height:8px;border-radius:50%;background:#0E8A4D;position:relative}
-.avail .pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid #0E8A4D;animation:pulse 2.4s ease-out infinite}
+.avail .pulse{width:8px;height:8px;border-radius:50%;background:#0E8A4D;position:relative;box-shadow:0 0 0 3px rgba(14,138,77,.25)}
 
 /* ----- Footer ----------------------------------------------------------- */
 footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-top:2px solid var(--rule)}
@@ -652,13 +643,6 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 .help h3{font-size:1.32rem;font-weight:650;display:flex;align-items:center;gap:.4em;margin-bottom:.5em;letter-spacing:-.02em}
 .help h3 .up{color:var(--pine);font-size:.6em;display:inline-block}
 .help p{font-size:.94rem;color:var(--ink-2);line-height:1.58}
-@media (prefers-reduced-motion:no-preference){
-  .help h3 .up{animation:upbob 2.6s ease-in-out infinite}
-  .help:nth-child(2n) h3 .up{animation-delay:-.8s}
-  .help:nth-child(3n) h3 .up{animation-delay:-1.5s}
-  .help:nth-child(4n) h3 .up{animation-delay:-2s}
-}
-@keyframes upbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 @media (max-width:900px){.help{flex-basis:230px}}
 @media (max-width:480px){.help{flex-basis:82vw}}
 
@@ -747,15 +731,6 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 .bub[data-size="sm"]{font-size:.72rem;padding:.5em .85em;opacity:.92}
 .bubble:hover .bub{transform:scale(1.07) translateY(-2px);background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:0 14px 28px -16px rgba(var(--sh-rgb),.6)}
 .bubble:hover .bub::before{opacity:1;transform:scale(1.5)}
-@media (prefers-reduced-motion:no-preference){
-  .bubble{animation:bubblefloat 6s ease-in-out infinite}
-  .bubble:nth-child(2n){animation-duration:7.4s;animation-delay:-1.6s}
-  .bubble:nth-child(3n){animation-duration:8.2s;animation-delay:-3.1s}
-  .bubble:nth-child(4n){animation-duration:6.6s;animation-delay:-2.3s}
-  .bubble:nth-child(5n){animation-duration:7.8s;animation-delay:-0.9s}
-  .bubble:nth-child(7n){animation-duration:9s;animation-delay:-4s}
-}
-@keyframes bubblefloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 .skill-cat .bubbles{margin-top:.4em}
 
 /* =========================================================================
@@ -822,13 +797,12 @@ body{counter-reset:sec}
 .bigline .code u{color:var(--gold);text-decoration:none}
 .bigline .code i{color:var(--blue);font-style:italic}
 
-/* spinning orbit badge on the portrait */
+/* orbit badge on the portrait — static now, one less thing spinning */
 .orbit{position:absolute;top:-30px;right:-24px;width:132px;height:132px;z-index:2;color:var(--ink)}
 .orbit::before{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--paper);border:1px solid var(--line-2);box-shadow:0 14px 30px -20px rgba(var(--sh-rgb),.55)}
 .orbit::after{content:"✳";position:absolute;inset:0;display:grid;place-items:center;color:var(--accent);font-size:1.35rem}
-.orbit svg{position:relative;width:100%;height:100%;animation:orbitspin 20s linear infinite}
+.orbit svg{position:relative;width:100%;height:100%}
 .orbit text{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;fill:currentColor}
-@keyframes orbitspin{to{transform:rotate(360deg)}}
 
 /* "How I can help" cards — indexed + color-coded per card */
 .helps-track{counter-reset:help}
@@ -845,8 +819,6 @@ body{counter-reset:sec}
 .help-ic{color:var(--hc)}
 .help:hover .help-ic{background:var(--hc);color:var(--paper)}
 
-/* terminal caret on the hero eyebrow */
-.hero .eyebrow::after{content:"▌";color:var(--accent);margin-left:.2em;animation:caret 1.1s steps(1) infinite}
 @keyframes caret{50%{opacity:0}}
 
 @media (max-width:900px){
