@@ -158,8 +158,8 @@ section{padding-block:clamp(64px,9vw,140px)}
 .topbar .wrap{
   display:flex;align-items:center;justify-content:space-between;gap:24px;height:60px;
   max-width:calc(var(--maxw) - var(--gutter)*2);margin-inline:auto;padding-inline:22px;
-  background:rgba(var(--paper-rgb),.86);
-  backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
+  background:rgba(var(--paper-rgb),.9);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   border:1px solid var(--line);border-radius:9999px;
   box-shadow:0 10px 30px -18px rgba(var(--sh-rgb),.35);transition:box-shadow .4s,background .4s;
 }
@@ -272,7 +272,7 @@ section{padding-block:clamp(64px,9vw,140px)}
 @media (max-width:480px){.fixit-input-row{flex-direction:column}}
 
 /* floating chips */
-.chip{position:absolute;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;padding:.45em .7em;background:var(--paper);border:1px solid var(--line-2);border-radius:10px;box-shadow:0 8px 20px -12px rgba(var(--sh-rgb),.5);white-space:nowrap;transition:margin .2s linear}
+.chip{position:absolute;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;padding:.45em .7em;background:var(--paper);border:1px solid var(--line-2);border-radius:10px;box-shadow:0 8px 20px -12px rgba(var(--sh-rgb),.5);white-space:nowrap;transition:transform .2s linear}
 .chip.c1{top:-14px;right:8%;color:var(--pine)}
 .chip.c2{bottom:34px;left:-16px;color:var(--accent)}
 .chip .ar{color:var(--pine)}
@@ -315,6 +315,7 @@ section{padding-block:clamp(64px,9vw,140px)}
 .dispatch.feature .link-u{color:var(--ink)}
 .d-kicker{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:.6em}
 .d-kicker .live{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.25)}
+@media (prefers-reduced-motion:no-preference){.d-kicker .live{animation:statusping 6.5s ease-out infinite}}
 .dispatch h3{margin:.7em 0 .35em;font-size:clamp(1.35rem,2.4vw,1.9rem)}
 .dispatch p{color:var(--ink-2);margin-bottom:1em;max-width:52ch}
 .dispatch .d-meta{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:1em;display:flex;gap:14px;flex-wrap:wrap}
@@ -424,6 +425,9 @@ section{padding-block:clamp(64px,9vw,140px)}
 .ccard.em:hover{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .avail{margin-top:2.4em;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:inline-flex;align-items:center;gap:.7em}
 .avail .pulse{width:8px;height:8px;border-radius:50%;background:#0E8A4D;position:relative;box-shadow:0 0 0 3px rgba(14,138,77,.25)}
+@media (prefers-reduced-motion:no-preference){.avail .pulse{animation:statusping-green 7.2s ease-out -2.4s infinite}}
+@keyframes statusping{0%,88%,100%{box-shadow:0 0 0 3px rgba(var(--accent-rgb),.25)}93%{box-shadow:0 0 0 9px rgba(var(--accent-rgb),.12)}96%{box-shadow:0 0 0 13px rgba(var(--accent-rgb),0)}}
+@keyframes statusping-green{0%,88%,100%{box-shadow:0 0 0 3px rgba(14,138,77,.25)}93%{box-shadow:0 0 0 9px rgba(14,138,77,.12)}96%{box-shadow:0 0 0 13px rgba(14,138,77,0)}}
 
 /* ----- Footer ----------------------------------------------------------- */
 footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-top:2px solid var(--rule)}
@@ -641,7 +645,8 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 .help-ic svg{width:23px;height:23px}
 .help:hover .help-ic{transform:rotate(-6deg) scale(1.06);background:var(--ink);color:var(--paper)}
 .help h3{font-size:1.32rem;font-weight:650;display:flex;align-items:center;gap:.4em;margin-bottom:.5em;letter-spacing:-.02em}
-.help h3 .up{color:var(--pine);font-size:.6em;display:inline-block}
+.help h3 .up{color:var(--pine);font-size:.6em;display:inline-block;transition:transform .35s var(--ease)}
+.help:hover h3 .up{transform:translateY(-3px)}
 .help p{font-size:.94rem;color:var(--ink-2);line-height:1.58}
 @media (max-width:900px){.help{flex-basis:230px}}
 @media (max-width:480px){.help{flex-basis:82vw}}
@@ -722,6 +727,17 @@ footer.site{background:var(--paper);padding:clamp(54px,7vw,92px) 0 30px;border-t
 .bubbles{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .bubbles.center{justify-content:center}
 .bubble{display:inline-block;will-change:transform}
+/* one-time staggered pop-in as the group scrolls into view (rides the same
+   .reveal/.in mechanism main.js already drives — no extra JS, no loop) */
+@media (prefers-reduced-motion:no-preference){
+  .bubble{opacity:0;transform:translateY(10px) scale(.92);transition:opacity .4s var(--ease-out),transform .4s var(--ease-out)}
+  .skill-cat.in .bubble{opacity:1;transform:none}
+  .skill-cat.in .bubble:nth-child(2n){transition-delay:.04s}
+  .skill-cat.in .bubble:nth-child(3n){transition-delay:.08s}
+  .skill-cat.in .bubble:nth-child(4n){transition-delay:.12s}
+  .skill-cat.in .bubble:nth-child(5n){transition-delay:.16s}
+  .skill-cat.in .bubble:nth-child(7n){transition-delay:.2s}
+}
 .bub{display:inline-block;font-family:var(--mono);font-size:.82rem;line-height:1;color:var(--ink-2);
   border:1px solid var(--line-2);border-radius:100px;background:var(--paper-2);padding:.62em 1.05em;cursor:default;
   transition:transform .35s var(--ease),background .3s,color .3s,border-color .3s,box-shadow .35s}
@@ -801,7 +817,8 @@ body{counter-reset:sec}
 .orbit{position:absolute;top:-30px;right:-24px;width:132px;height:132px;z-index:2;color:var(--ink)}
 .orbit::before{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--paper);border:1px solid var(--line-2);box-shadow:0 14px 30px -20px rgba(var(--sh-rgb),.55)}
 .orbit::after{content:"✳";position:absolute;inset:0;display:grid;place-items:center;color:var(--accent);font-size:1.35rem}
-.orbit svg{position:relative;width:100%;height:100%}
+.orbit svg{position:relative;width:100%;height:100%;transition:transform .8s var(--ease-out)}
+.portrait:hover .orbit svg{transform:rotate(360deg)}
 .orbit text{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;fill:currentColor}
 
 /* "How I can help" cards — indexed + color-coded per card */

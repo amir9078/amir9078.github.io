@@ -7,6 +7,28 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
+  /* leading+trailing throttle, ~60fps ceiling by default. Deliberately not
+     requestAnimationFrame: rAF is throttled/paused in backgrounded or
+     non-foreground tabs by design, which is fine for real users but means
+     these two scroll handlers (progress bar + statusline %) would silently
+     stop updating in exactly the states where that'd be hardest to notice.
+     A time-based cap gives the same "don't do this on every single scroll
+     tick" win without that dependency. */
+  function throttle(fn, wait) {
+    var last = 0, timer = null;
+    return function () {
+      var now = Date.now();
+      var remaining = wait - (now - last);
+      if (remaining <= 0) {
+        if (timer) { clearTimeout(timer); timer = null; }
+        last = now;
+        fn();
+      } else if (!timer) {
+        timer = setTimeout(function () { last = Date.now(); timer = null; fn(); }, remaining);
+      }
+    };
+  }
+
   /* ---- ambient code wallpaper (faint, behind everything, same on every page) ---- */
   (function () {
     var snippets = [
@@ -53,6 +75,9 @@
   var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
 
   /* ---- sticky header + scroll progress + back-to-top ---- */
+  /* throttled: without this, every native scroll tick (which can fire far
+     more often than 60fps on trackpads/high-refresh displays) runs a full
+     style read+write on the main thread — a real source of scroll jank. */
   var bar = $(".topbar"), prog = $(".progress"), toTop = $(".totop");
   function onScroll() {
     var t = window.pageYOffset || document.documentElement.scrollTop;
@@ -63,7 +88,7 @@
     }
     if (toTop) toTop.classList.toggle("show", t > 700);
   }
-  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("scroll", throttle(onScroll, 16), { passive: true });
   onScroll();
   if (toTop) toTop.addEventListener("click", function () {
     window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
@@ -180,6 +205,8 @@
   }
 
   /* ---- layered parallax on hero's floating chips ---- */
+  /* transform, not margin: margin changes force a layout reflow on every
+     mousemove tick; transform is compositor-only and stays smooth */
   var heroEl = $(".hero");
   var chips = $$(".chip");
   if (heroEl && chips.length && finePointer && !reduce) {
@@ -189,12 +216,11 @@
       var py = (e.clientY - r.top) / r.height - 0.5;
       chips.forEach(function (c, i) {
         var depth = i % 2 === 0 ? 16 : 24;
-        c.style.marginLeft = (px * -depth) + "px";
-        c.style.marginTop = (py * -depth) + "px";
+        c.style.transform = "translate(" + (px * -depth) + "px," + (py * -depth) + "px)";
       });
     });
     heroEl.addEventListener("mouseleave", function () {
-      chips.forEach(function (c) { c.style.marginLeft = ""; c.style.marginTop = ""; });
+      chips.forEach(function (c) { c.style.transform = ""; });
     });
   }
 
@@ -273,6 +299,10 @@
   }
 
   /* ---- live session statusline: shows the section being read + scroll % ---- */
+  /* the section-tracking half runs on an IntersectionObserver, not a scroll
+     handler — the old version called getBoundingClientRect() on every
+     section on every scroll tick, forcing a synchronous layout each time.
+     The scroll handler left only does two cheap reads, throttled. */
   (function () {
     var page = (location.pathname.split("/").pop() || "index.html").replace(/\.html$/, "") || "index";
     var rl = document.createElement("div");
@@ -282,25 +312,27 @@
     document.body.appendChild(rl);
     var pathEl = $(".rl-path", rl), pctEl = $(".rl-pct", rl);
     var marks = $$("section[id], article[id]");
-    var lastText = "";
-    function update() {
+    var current = "";
+
+    function setPath() { pathEl.textContent = "~/" + page + (current ? "#" + current : ""); }
+    setPath();
+
+    if (marks.length && "IntersectionObserver" in window) {
+      var ioRL = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) current = e.target.id; });
+        setPath();
+      }, { rootMargin: "-40% 0px -55% 0px" });
+      marks.forEach(function (s) { ioRL.observe(s); });
+    }
+
+    function updatePct() {
       var t = window.pageYOffset || document.documentElement.scrollTop;
       var h = document.documentElement.scrollHeight - window.innerHeight;
       var pct = h > 0 ? Math.round((t / h) * 100) : 0;
-      var current = "";
-      var line = window.innerHeight * 0.4;
-      for (var i = 0; i < marks.length; i++) {
-        if (marks[i].getBoundingClientRect().top <= line) current = marks[i].id;
-      }
-      var text = "~/" + page + (current ? "#" + current : "") + "|" + pct;
-      if (text !== lastText) {
-        lastText = text;
-        pathEl.textContent = "~/" + page + (current ? "#" + current : "");
-        pctEl.textContent = pct + "%";
-      }
+      pctEl.textContent = pct + "%";
     }
-    window.addEventListener("scroll", update, { passive: true });
-    update();
+    window.addEventListener("scroll", throttle(updatePct, 16), { passive: true });
+    updatePct();
   })();
 
   /* ---- section labels type themselves in as they scroll into view ---- */
